@@ -1,0 +1,72 @@
+20:00:42 07-04-2024 -  Shop initialized.
+20:00:45 07-04-2024 -  Data updated.
+20:00:45 07-04-2024 -  Shop closed.
+
+20:13:24 07-04-2024 -  Shop initialized.
+20:15:23 07-04-2024 - sherlockholmes logged in.
+20:15:43 07-04-2024 - sherlockholmes printed all cars.
+20:16:50 07-04-2024 - sherlockholmes printed all cars.
+20:16:56 07-04-2024 - sherlockholmes filtered cars by condition.
+20:22:52 07-04-2024 - sherlockholmes bought a(n) Pickup, Ram 1500, Black for 16662.345999999998.
+20:23:04 07-04-2024 - sherlockholmes viewed tickets.
+20:23:38 07-04-2024 - sherlockholmes logged out.
+20:24:20 07-04-2024 - tonystark logged in.
+20:24:47 07-04-2024 - tonystark logged out.
+20:25:06 07-04-2024 - rickblaine logged in.
+20:25:23 07-04-2024 - rickblaine filtered cars by condition.
+20:27:45 07-04-2024 - rickblaine bought a(n) Sedan, Ford Fusion, Yellow for 18830.37.
+20:27:57 07-04-2024 - rickblaine viewed tickets.
+20:28:27 07-04-2024 - rickblaine printed all cars.
+20:32:56 07-04-2024 - rickblaine logged out.
+20:34:05 07-04-2024 - jasonbourne logged in.
+20:34:16 07-04-2024 - jasonbourne filtered cars by condition.
+20:35:12 07-04-2024 - jasonbourne bought a(n) SUV, Honda CR-V, Green for 40162.3725.
+20:37:21 07-04-2024 - jasonbourne filtered cars by condition.
+20:38:00 07-04-2024 - jasonbourne viewed tickets.
+20:38:10 07-04-2024 - jasonbourne printed all cars.
+20:38:57 07-04-2024 - jasonbourne logged out.
+20:39:28 07-04-2024 - Admin Admin logged in.
+20:40:14 07-04-2024 - Admin Admin logged out.
+20:41:42 07-04-2024 - katnisseverdeen logged in.
+20:41:49 07-04-2024 - katnisseverdeen filtered cars by condition.
+20:42:06 07-04-2024 - katnisseverdeen bought a(n) Pickup, Ram 1500, Silver for 13733.135499999999.
+20:42:14 07-04-2024 - katnisseverdeen filtered cars by condition.
+20:44:26 07-04-2024 - katnisseverdeen logged out.
+20:46:11 07-04-2024 - dorothygale logged in.
+20:46:53 07-04-2024 - dorothygale bought a(n) Sedan, Toyota Camry, Silver for 17585.0975.
+20:47:53 07-04-2024 - dorothygale filtered cars by condition.
+20:48:11 07-04-2024 - dorothygale bought a(n) Hatchback, Toyota Prius, White for 13938.6655.
+20:48:13 07-04-2024 - dorothygale viewed tickets.
+20:49:23 07-04-2024 - dorothygale filtered cars by condition.
+20:50:39 07-04-2024 - dorothygale viewed tickets.
+20:50:49 07-04-2024 - dorothygale logged out.
+20:52:12 07-04-2024 - hansolo logged in.
+20:52:20 07-04-2024 - hansolo filtered cars by condition.
+20:52:38 07-04-2024 - hansolo bought a(n) Pickup, Ram 1500, Blue for 14414.189499999999.
+20:53:05 07-04-2024 - hansolo bought a(n) Sedan, Ford Fusion, Yellow for 16005.814499999999.
+20:53:08 07-04-2024 - hansolo viewed tickets.
+20:53:49 07-04-2024 - hansolo bought a(n) Pickup, Ram 1500, Silver for 13733.135499999999.
+20:53:50 07-04-2024 - hansolo viewed tickets.
+20:54:38 07-04-2024 - hansolo logged out.
+20:55:00 07-04-2024 - Admin Admin logged in.
+20:55:26 07-04-2024 - Admin Admin logged out.
+21:00:30 07-04-2024 - neo logged in.
+21:01:04 07-04-2024 - neo printed all cars.
+21:02:13 07-04-2024 - neo bought a(n) SUV, Toyota RAV4, Green for 14438.958499999999.
+21:02:16 07-04-2024 - neo printed all cars.
+21:02:19 07-04-2024 - neo filtered cars by condition.
+21:02:34 07-04-2024 - neo filtered cars by condition.
+21:02:44 07-04-2024 - neo bought a(n) Pickup, Ram 1500, Silver for 13733.135499999999.
+21:03:51 07-04-2024 - neo bought a(n) Sedan, Ford Fusion, Yellow for 16005.814499999999.
+21:03:57 07-04-2024 - neo viewed tickets.
+21:04:19 07-04-2024 - neo logged out.
+21:04:22 07-04-2024 -  Data updated.
+21:04:22 07-04-2024 -  Shop closed.
+
+13:45:17 12-04-2024 -  Shop initialized.
+13:46:17 12-04-2024 - harrypotter logged in.
+13:46:21 12-04-2024 - harrypotter printed all cars.
+13:46:43 12-04-2024 - harrypotter logged out.
+13:46:48 12-04-2024 -  Data updated.
+13:46:48 12-04-2024 -  Shop closed.
+
