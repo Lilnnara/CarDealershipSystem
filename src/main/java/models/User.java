@@ -20,7 +20,7 @@ public class User extends Person {
      * @param username The username of the user.
      * @param password The password of the user.
      */
-    protected User(int id, String firstName, String lastName, double moneyAvailable, int carsPurchased, boolean minecarsMembership, String username, String password) {
+    public User(int id, String firstName, String lastName, double moneyAvailable, int carsPurchased, boolean minecarsMembership, String username, String password) {
         super(firstName, lastName); // Call to the superclass (Person) constructor
         this.id = id;
         this.moneyAvailable = moneyAvailable;
