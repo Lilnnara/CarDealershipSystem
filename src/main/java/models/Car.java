@@ -13,11 +13,11 @@ public class Car {
     private String vin;
     private String fuelType;
     private String model;
-    private boolean hasTurbo;
+    private String hasTurbo;
 
     // Constructor
     public Car(int capacity, String carType, int carsAvailable, String condition, String color, String id, int year,
-            double price, String transmission, String vin, String fuelType, String model, boolean hasTurbo) {
+            double price, String transmission, String vin, String fuelType, String model, String hasTurbo) {
         this.capacity = capacity;
         this.carType = carType;
         this.carsAvailable = carsAvailable;
@@ -31,6 +31,22 @@ public class Car {
         this.fuelType = fuelType;
         this.model = model;
         this.hasTurbo = hasTurbo;
+    }
+    public Car(int capacity, String carType, int carsAvailable, String condition, String color, String id, int year,
+            double price, String transmission, String vin, String fuelType, String model) {
+        this.capacity = capacity;
+        this.carType = carType;
+        this.carsAvailable = carsAvailable;
+        this.condition = condition;
+        this.color = color;
+        this.id = id;
+        this.year = year;
+        this.price = price;
+        this.transmission = transmission;
+        this.vin = vin;
+        this.fuelType = fuelType;
+        this.model = model;
+
     }
 
     // Getters and setters
@@ -130,12 +146,21 @@ public class Car {
         this.model = model;
     }
 
-    public boolean isHasTurbo() {
+    public String isHasTurbo() {
         return hasTurbo;
     }
 
-    public void setHasTurbo(boolean hasTurbo) {
-        this.hasTurbo = hasTurbo;
+    public String setHasTurbo(String hasTurbo) {
+        return this.hasTurbo = hasTurbo;
+    }
+
+    @Override
+    public String toString() {
+        return "Capacity: " + this.capacity + ", Car Type: " + this.carType + ", Cars Available: " + this.carsAvailable +
+                ", Condition: " + this.condition + ", Color: " + this.color + ", ID: " + this.id +
+                ", Year: " + this.year + ", Price: " + this.price + ", Transmission: " + this.transmission +
+                ", VIN: " + this.vin + ", Fuel Type: " + this.fuelType + ", Model: " + this.model +
+                ", hasTurbo: " + this.hasTurbo;
     }
 }
 
