@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import main.java.models.Car;
+import main.java.models.User;
 
 public class FileHandler {
 
@@ -76,4 +77,47 @@ public class FileHandler {
         scanner.close();
         return carMap;
     }
+
+    public static HashMap<Integer, User> createUserMap(String filename) throws IOException {
+        // Create scanner
+        Scanner scanner = new Scanner(new File(filename));
+        // Create hashmap to store our cars (id , car object)
+        HashMap<Integer, User> userMap = new HashMap<>();
+        // Create hashmap to get the indexes of the header to make it dynamic
+        HashMap<String, Integer> userHeaderIndexMap;
+        try {
+            userHeaderIndexMap = fileHeaderIndex(filename);
+        } catch (IOException e) {
+            e.printStackTrace();
+            scanner.close();
+            return null; // Handle the exception appropriately
+        }
+
+        // Skip the header line
+        scanner.nextLine();
+
+        while (scanner.hasNextLine()) {
+            String[] line = scanner.nextLine().split(",");
+            // Check if the line contains all attributes for a car with turbo
+            if (line.length == userHeaderIndexMap.size()) {
+                // Create a new Car object with turbo
+                User newUser = new User(Integer.parseInt(line[userHeaderIndexMap.get("ID")]),
+                        line[userHeaderIndexMap.get("First Name")],
+                        line[userHeaderIndexMap.get("Last Name")], 
+                        Double.parseDouble(line[userHeaderIndexMap.get("Money Available")]), 
+                        Integer.parseInt(line[userHeaderIndexMap.get("Cars Purchased")]),
+                        Boolean.parseBoolean(line[userHeaderIndexMap.get("MinerCars Membership")]), 
+                        line[userHeaderIndexMap.get("Username")], 
+                        line[userHeaderIndexMap.get("Password")]);
+                // Add the user to the map
+                userMap.put(Integer.parseInt(line[userHeaderIndexMap.get("ID")]), newUser);
+            }
+            else {
+                System.out.println("Incomplete data for a USER in the file: " + String.join(", ", line));
+            }
+        }
+        scanner.close();
+        return userMap;
+    }
+    
 }
