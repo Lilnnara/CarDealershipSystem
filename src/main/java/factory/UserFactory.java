@@ -3,6 +3,9 @@ package main.java.factory;
 import main.java.models.User;
 import java.util.HashMap;
 
+/**
+ * The UserFactory class provides methods for creating User objects from user attributes.
+ */
 public class UserFactory {
 
     /**
@@ -30,6 +33,14 @@ public class UserFactory {
         }
     }
 
+    /**
+     * Parses an integer value from a string and throws an IllegalArgumentException if the value is invalid.
+     *
+     * @param value     The string value to parse.
+     * @param fieldName The name of the field being parsed (for error messages).
+     * @return The parsed integer value.
+     * @throws IllegalArgumentException If the string value is empty or cannot be parsed as an integer.
+     */
     private static int parseInteger(String value, String fieldName) {
         if (value == null || value.trim().isEmpty()) {
             throw new IllegalArgumentException(fieldName + " cannot be empty");
@@ -41,6 +52,14 @@ public class UserFactory {
         }
     }
 
+    /**
+     * Parses a double value from a string and throws an IllegalArgumentException if the value is invalid.
+     *
+     * @param value     The string value to parse.
+     * @param fieldName The name of the field being parsed (for error messages).
+     * @return The parsed double value.
+     * @throws IllegalArgumentException If the string value is empty or cannot be parsed as a double.
+     */
     private static double parseDouble(String value, String fieldName) {
         if (value == null || value.trim().isEmpty()) {
             throw new IllegalArgumentException(fieldName + " cannot be empty");
@@ -52,10 +71,25 @@ public class UserFactory {
         }
     }
 
+    /**
+     * Parses a boolean value from a string.
+     *
+     * @param value     The string value to parse.
+     * @param fieldName The name of the field being parsed (for error messages).
+     * @return The parsed boolean value.
+     */
     private static boolean parseBoolean(String value, String fieldName) {
         return "true".equalsIgnoreCase(value);
     }
 
+    /**
+     * Parses a string value and throws an IllegalArgumentException if the value is empty.
+     *
+     * @param value     The string value to parse.
+     * @param fieldName The name of the field being parsed (for error messages).
+     * @return The parsed string value.
+     * @throws IllegalArgumentException If the string value is empty.
+     */
     private static String parseString(String value, String fieldName) {
         if (value == null || value.trim().isEmpty()) {
             throw new IllegalArgumentException(fieldName + " cannot be empty");
