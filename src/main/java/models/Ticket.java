@@ -9,10 +9,10 @@ public class Ticket {
     private double finalPrice;
     private boolean returned;
 
-    public Ticket(User buyer, Car purchasedCar, double finalPrice) {
+    public Ticket(User buyer, Car purchasedCar, Date purchaseDate, double finalPrice) {
         this.buyer = buyer;
         this.purchasedCar = purchasedCar;
-        this.purchaseDate = new Date(); // captures the current date and time
+        this.purchaseDate = purchaseDate;  // Now directly using the provided date
         this.finalPrice = finalPrice;
         this.returned = false;
     }
@@ -45,18 +45,17 @@ public class Ticket {
     // To be used when printing the ticket or writing to a CSV
     @Override
     public String toString() {
-        return buyer.getUsername() + "," +
-               purchasedCar.getId() + "," +
-               purchaseDate + "," +
-               finalPrice + "," +
-               (returned ? "Returned" : "Not Returned");
+        return "Buyer: " + buyer.getUsername() + 
+               ", Car: " + purchasedCar.getId() + 
+               ", Purchase Date: " + purchaseDate + 
+               ", Final Price: $" + finalPrice + 
+               ", Returned: " + (returned ? "Yes" : "No");
     }
-    
-    // Method to generate CSV line for storing tickets
+
     public String toCSV() {
         return buyer.getId() + "," +
                purchasedCar.getId() + "," +
-               purchaseDate.getTime() + "," + // Storing as timestamp for consistency in CSV
+               purchaseDate.getTime() + "," +
                finalPrice + "," +
                (returned ? "True" : "False");
     }
