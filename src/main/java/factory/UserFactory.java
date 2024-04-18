@@ -4,18 +4,21 @@ import main.java.models.User;
 import java.util.HashMap;
 
 /**
- * The UserFactory class provides methods for creating User objects from user attributes.
+ * Factory class for creating instances of User.
+ * Implements the Factory interface to provide a consistent method of constructing User objects
+ * based on a HashMap of attributes.
  */
-public class UserFactory {
+public class UserFactory implements Factory<User> {
 
     /**
-     * Creates a User object using a HashMap containing user attributes.
-     * This method ensures that all user data is valid before creating the User object.
+     * Creates a User object from a HashMap containing attribute values.
+     * This method ensures that all user data is validated before creating the User object.
      *
      * @param attributes A HashMap containing user attributes.
      * @return A new User instance if all data is valid, otherwise throws IllegalArgumentException.
      */
-    public static User createUser(HashMap<String, String> attributes) {
+    @Override
+    public User create(HashMap<String, String> attributes) {
         try {
             int id = parseInteger(attributes.get("ID"), "ID");
             String firstName = parseString(attributes.get("First Name"), "First Name");
