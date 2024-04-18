@@ -5,9 +5,10 @@ import java.util.HashMap;
 
 /**
  * Factory class for creating instances of Car.
- * Utilizes a HashMap to construct Car objects with dynamic attribute values.
+ * Implements the Factory interface to provide a consistent method of constructing Car objects
+ * based on a HashMap of attributes.
  */
-public class CarFactory {
+public class CarFactory implements Factory<Car> {
 
     /**
      * Creates a Car object from a HashMap containing attribute values.
@@ -16,7 +17,8 @@ public class CarFactory {
      * @param attributes A HashMap containing Car attribute values.
      * @return A new Car object or null if critical attributes are invalid.
      */
-    public static Car createCar(HashMap<String, String> attributes) {
+    @Override
+    public Car create(HashMap<String, String> attributes) {
         try {
             int capacity = Integer.parseInt(attributes.getOrDefault("Capacity", "0"));
             String carType = attributes.getOrDefault("Car Type", "Unknown");
@@ -30,14 +32,8 @@ public class CarFactory {
             String vin = attributes.getOrDefault("VIN", "Unknown");
             String fuelType = attributes.getOrDefault("Fuel Type", "Unknown");
             String model = attributes.getOrDefault("Model", "Unknown");
-            
-            // Defaulting to "No" if the "HasTurbo" attribute is missing or empty
-            String hasTurbo = attributes.getOrDefault("hasTurbo", "No");
-            // System.out.println("------------------------------------");
-            // System.out.println(hasTurbo);
-            // System.out.println("------------------------------------");
-            boolean turbo = "Yes".equalsIgnoreCase(hasTurbo);  // This will be false if hasTurbo is "no" or missing
-    
+            boolean turbo = "Yes".equalsIgnoreCase(attributes.getOrDefault("hasTurbo", "No"));
+
             return new Car(capacity, carType, carsAvailable, condition, color, id, year,
                            price, transmission, vin, fuelType, model, turbo);
         } catch (NumberFormatException e) {
@@ -46,5 +42,4 @@ public class CarFactory {
             return null;  // Return null if there is an error in parsing integers or doubles
         }
     }
-    
 }

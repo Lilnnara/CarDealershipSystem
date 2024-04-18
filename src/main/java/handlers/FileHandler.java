@@ -2,6 +2,7 @@ package main.java.handlers;
 
 import main.java.factory.CarFactory;
 import main.java.factory.UserFactory;
+import main.java.factory.Factory;
 import main.java.models.Car;
 import main.java.models.User;
 
@@ -15,6 +16,9 @@ import java.util.Scanner;
  * The FileHandler class provides methods for handling file operations related to users and cars.
  */
 public class FileHandler {
+
+    private static Factory<Car> carFactory = new CarFactory();
+    private static Factory<User> userFactory = new UserFactory();
 
     /**
      * Reads the header line of a CSV file and creates a mapping of header names to their corresponding indices.
@@ -60,7 +64,7 @@ public class FileHandler {
                     attributes.put(key, value);
                 }
                 try {
-                    Car newCar = CarFactory.createCar(attributes);
+                    Car newCar = carFactory.create(attributes);
                     carMap.put(Integer.parseInt(attributes.get("ID")), newCar);
                 } catch (Exception e) {
                     System.err.println("Failed to create car from line: " + line);
@@ -91,7 +95,7 @@ public class FileHandler {
                     attributes.put(key, line[userHeaderIndexMap.get(key)]);
                 }
                 try {
-                    User newUser = UserFactory.createUser(attributes);
+                    User newUser = userFactory.create(attributes);
                     userMap.put(Integer.parseInt(attributes.get("ID")), newUser);
                 } catch (Exception e) {
                     // Handling errors quietly or use a logger if needed
