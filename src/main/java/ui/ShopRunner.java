@@ -1,17 +1,73 @@
 package main.java.ui;
 
 import main.java.handlers.FileHandler;
+import main.java.handlers.ShopManager;
 import main.java.models.Car;
 import main.java.models.User;
 
 import java.util.HashMap;
-
-import java.io.IOException;
-
+import java.util.Scanner;
 
 public class ShopRunner {
+    private static ShopManager shopManager;
+    private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        try {
+            // Initialize ShopManager with user and car data
+            HashMap<String, User> userMap = FileHandler.createUserMap("resources/user_data.csv");
+            HashMap<Integer, Car> carMap = FileHandler.createCarMap("resources/car_data.csv");
+            shopManager = new ShopManager(carMap, userMap);
+            UserMenu userMenu = new UserMenu(shopManager, scanner);
+            AdminMenu adminMenu = new AdminMenu(shopManager, scanner);
+
+            System.out.println("****************************************************************");
+            System.out.println("*                                                              *");
+            System.out.println("*    ********** Welcome to the Car Dealership System! **********");
+            System.out.println("*                                                              *");
+            System.out.println("****************************************************************");
+            
+            while (true) {
+                System.out.println("Please sign in as:");
+                System.out.println("1. Admin");
+                System.out.println("2. User");
+                System.out.println("0. Exit");
+                System.out.print("Enter your choice: ");
+
+                String option = scanner.nextLine().trim();
+
+                switch (option) {
+                    case "1":
+                       
+                        
+                        adminMenu.handleSelection();
+                        break;
+                    case "2":
+                       
+                       
+                        userMenu.handleSelection();
+                        break;
+                    case "0":
+                        System.out.println("Exiting the system...");
+                        return; // Exit the loop and the program
+                    default:
+                        System.out.println("\n----- Invalid option selected. Please try again. -----\n");
+                        continue;
+                }
+            }
+
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            scanner.close(); // Always close the scanner when done
+        }
+    }
+}
+
+
+
+
 
         // TODO: Basic outline of what the RunShop class might handle:
 
@@ -48,33 +104,3 @@ public class ShopRunner {
 
 
         // Shows the current hashmap of Users and Cars 
-        // ------------------------------------------------------------------
-        try {
-            System.out.println("Working Directory = " + System.getProperty("user.dir"));
-
-            String usersFilename = "resources/user_data.csv";
-            String carsFilename = "resources/car_data.csv";
-
-            // Load the user and car data into maps
-            HashMap<Integer, User> userMap = FileHandler.createUserMap(usersFilename);
-            HashMap<Integer, Car> carMap = FileHandler.createCarMap(carsFilename);
-
-            // Print out the loaded users and cars
-            System.out.println("Loaded Users:");
-            userMap.values().forEach(System.out::println);
-
-            System.out.println("\nLoaded Cars:");
-            carMap.values().forEach(System.out::println);
-
-        } catch (IOException e) {
-            System.err.println("Error loading data: " + e.getMessage());
-            e.printStackTrace();
-        } catch (NumberFormatException e) {
-            System.err.println("Number format exception: " + e.getMessage());
-            e.printStackTrace();
-        } catch (Exception e) {
-            System.err.println("An unexpected error occurred: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-}
