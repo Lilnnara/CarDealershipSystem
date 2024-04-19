@@ -9,6 +9,7 @@ import main.java.models.User;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -27,13 +28,13 @@ public class FileHandler {
      * @return A HashMap containing header names as keys and their corresponding indices as values.
      * @throws IOException If an I/O error occurs while reading the file.
      */
-    public static HashMap<String, Integer> fileHeaderIndex(String filename) throws IOException {
-        HashMap<String, Integer> headerIndexMap = new HashMap<>();
+    public static LinkedHashMap<String, Integer> fileHeaderIndex(String filename) throws IOException {
+        LinkedHashMap<String, Integer> headerIndexMap = new LinkedHashMap<>();
         try (Scanner scanner = new Scanner(new File(filename))) {
             if (scanner.hasNextLine()) {
                 String[] headers = scanner.nextLine().split(",");
                 for (int i = 0; i < headers.length; i++) {
-                    headerIndexMap.put(headers[i].trim(), i);  // Trim headers to prevent whitespace issues
+                    headerIndexMap.put(headers[i], i);
                 }
             }
         }
@@ -49,7 +50,7 @@ public class FileHandler {
      */
     public static HashMap<Integer, Car> createCarMap(String filename) throws IOException {
         HashMap<Integer, Car> carMap = new HashMap<>();
-        HashMap<String, Integer> carHeaderIndexMap = fileHeaderIndex(filename);
+        LinkedHashMap<String, Integer> carHeaderIndexMap = fileHeaderIndex(filename);
 
         try (Scanner scanner = new Scanner(new File(filename))) {
             scanner.nextLine(); // Skip the header line
@@ -84,7 +85,7 @@ public class FileHandler {
      */
     public static HashMap<String, User> createUserMap(String filename) throws IOException {
         HashMap<String, User> userMap = new HashMap<>();
-        HashMap<String, Integer> userHeaderIndexMap = fileHeaderIndex(filename);
+        LinkedHashMap<String, Integer> userHeaderIndexMap = fileHeaderIndex(filename);
 
         try (Scanner scanner = new Scanner(new File(filename))) {
             scanner.nextLine(); // Skip the header line
