@@ -82,8 +82,8 @@ public class FileHandler {
      * @return A HashMap containing user IDs as keys and corresponding User objects as values.
      * @throws IOException If an I/O error occurs while reading the file.
      */
-    public static HashMap<Integer, User> createUserMap(String filename) throws IOException {
-        HashMap<Integer, User> userMap = new HashMap<>();
+    public static HashMap<String, User> createUserMap(String filename) throws IOException {
+        HashMap<String, User> userMap = new HashMap<>();
         HashMap<String, Integer> userHeaderIndexMap = fileHeaderIndex(filename);
 
         try (Scanner scanner = new Scanner(new File(filename))) {
@@ -96,7 +96,7 @@ public class FileHandler {
                 }
                 try {
                     User newUser = userFactory.create(attributes);
-                    userMap.put(Integer.parseInt(attributes.get("ID")), newUser);
+                    userMap.put(attributes.get("Username"), newUser);
                 } catch (Exception e) {
                     // Handling errors quietly or use a logger if needed
                 }
