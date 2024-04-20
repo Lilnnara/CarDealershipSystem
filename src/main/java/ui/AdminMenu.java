@@ -13,6 +13,8 @@ public class AdminMenu implements Menu {
     private Scanner scanner;
     private HashMap<Integer, Car> cars;
     private HashMap<String, User> users;
+    private String carFile;
+    private String userFile;
 
     public AdminMenu(ShopManager shopManager, Scanner scanner) {
         this.shopManager = shopManager;
@@ -60,6 +62,7 @@ public class AdminMenu implements Menu {
                     break;
                 case "0":
                     System.out.println("\n----- Exiting Admin Menu... -----\n");
+                    // FileHandler.updateCarFile(carFile, cars, carHeaderIndexMap); 
                     return; // Exit the loop
                 default:
                     System.out.println("\n----- Admin: Invalid option, please try again. -----\n");
