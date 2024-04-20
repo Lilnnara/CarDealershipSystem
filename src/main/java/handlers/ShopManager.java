@@ -3,33 +3,43 @@ package main.java.handlers;
 import java.util.Scanner;
 import main.java.models.Car;
 import main.java.models.User;
-import java.util.LinkedHashMap;
+import main.java.models.Ticket;
 
+import java.util.LinkedHashMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import main.java.factory.CarFactory;
 import main.java.factory.UserFactory;
+import main.java.factory.TicketFactory;
+
 
 public class ShopManager {
 
     private HashMap<Integer, Car> cars;
     private HashMap<String, User> users;
+    private HashMap<Integer, Ticket> tickets;
     private HashMap<Integer, List<String>> userTransactions; // Key: UserID, Value: List of transaction descriptions
     private LinkedHashMap<String, Integer> carHeaderIndexMap;
     private LinkedHashMap<String, Integer> userHeaderIndexMap;
+    private LinkedHashMap<String, Integer> ticketHeaderIndexMap;
     private CarFactory carFactory = new CarFactory();
     private UserFactory userFactory = new UserFactory();
+    private TicketFactory ticketFactory = new TicketFactory();
     
 
-    public ShopManager(HashMap<Integer, Car> cars, HashMap<String, User> users, 
+    public ShopManager(HashMap<Integer, Car> cars, HashMap<String, User> users, HashMap<Integer, Ticket> tickets,
                        LinkedHashMap<String, Integer> carHeaderIndexMap,
-                       LinkedHashMap<String, Integer> userHeaderIndexMap) {
+                       LinkedHashMap<String, Integer> userHeaderIndexMap,
+                       LinkedHashMap<String, Integer> ticketHeaderIndexMap) {
         this.cars = cars;
         this.users = users;
+        this.tickets = tickets;
         this.carHeaderIndexMap = carHeaderIndexMap;
         this.userHeaderIndexMap = userHeaderIndexMap;
         this.userTransactions = new HashMap<>();
+        this.ticketHeaderIndexMap = ticketHeaderIndexMap;
+        
     }
 
     public boolean authenticateAdmin(String adminCode) {
@@ -72,7 +82,7 @@ public class ShopManager {
         //update csv with the new car <3 uncomment if we want to update evrytime we add a car
         // FileHandler.updateCarFile("car_data.csv", cars, carHeaderIndexMap); 
 
-        // scanner.close();
+        scanner.close();
         // RETURN HASHMAP
         return cars;
     }

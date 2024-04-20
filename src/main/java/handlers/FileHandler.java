@@ -3,8 +3,11 @@ package main.java.handlers;
 import main.java.factory.CarFactory;
 import main.java.factory.UserFactory;
 import main.java.factory.Factory;
+import main.java.factory.TicketFactory;
+import main.java.models.Ticket;
 import main.java.models.Car;
 import main.java.models.User;
+
 import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +23,8 @@ public class FileHandler {
 
     private static Factory<Car> carFactory = new CarFactory();
     private static Factory<User> userFactory = new UserFactory();
+    private static Factory<Ticket> ticketFactory = new TicketFactory();
+
 
     /**
      * Reads the header line of a CSV file and creates a mapping of header names to their corresponding indices.
@@ -39,6 +44,41 @@ public class FileHandler {
             }
         }
         return headerIndexMap;
+    }
+
+        /**
+     * Creates a HashMap of tickets read from a CSV file, with ticket IDs as keys and Ticket objects as values.
+     *
+     * @param filename The path to the CSV file containing ticket data.
+     * @param ticketHeaderIndexMap A LinkedHashMap containing header names as keys and their corresponding indices as values.
+     * @return A HashMap containing ticket IDs as keys and corresponding Ticket objects as values.
+     * @throws IOException If an I/O error occurs while reading the file.
+     */
+    public static HashMap<Integer, Ticket> createTicketMap(String filename, LinkedHashMap<String, Integer> ticketHeaderIndexMap) throws IOException {
+        HashMap<Integer, Ticket> ticketMap = new HashMap<>();
+
+        try (Scanner scanner = new Scanner(new File(filename))) {
+            scanner.nextLine(); // Skip the header line
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine().trim();
+                String[] fields = line.split(","); // Split fields by comma
+                HashMap<String, String> attributes = new HashMap<>();
+                for (Map.Entry<String, Integer> entry : ticketHeaderIndexMap.entrySet()) {
+                    String key = entry.getKey();
+                    int index = entry.getValue();
+                    String value = (index < fields.length) ? fields[index].trim() : "";
+                    attributes.put(key, value);
+                }
+                try {
+                    Ticket newTicket = ticketFactory.create(attributes);
+                    ticketMap.put(Integer.parseInt(attributes.get("TicketID")), newTicket);
+                } catch (Exception e) {
+                    System.err.println("Failed to create ticket from line: " + line);
+                    e.printStackTrace();
+                }
+            }
+        }
+        return ticketMap;
     }
 
     /**
@@ -75,6 +115,7 @@ public class FileHandler {
         return carMap;
     }
 
+
     /**
      * Creates a HashMap of users read from a CSV file, with user IDs as keys and User objects as values.
      *
@@ -104,7 +145,8 @@ public class FileHandler {
         return userMap;
     }
 
-    // TODO: We need to create a method that updates CSV file for Car and User
+    
+
     /**
  * Updates a CSV file with car data using the provided filename, car map, and headers.
  *
