@@ -49,7 +49,7 @@ public class FileHandler {
         /**
      * Creates a HashMap of tickets read from a CSV file, with ticket IDs as keys and Ticket objects as values.
      *
-     * @param filename The path to the CSV file containing ticket data.
+     * @param filename The path to the CSV file containing ticket data. Must inclue resources/____.csv to scan from the correct file
      * @param ticketHeaderIndexMap A LinkedHashMap containing header names as keys and their corresponding indices as values.
      * @return A HashMap containing ticket IDs as keys and corresponding Ticket objects as values.
      * @throws IOException If an I/O error occurs while reading the file.
@@ -84,7 +84,7 @@ public class FileHandler {
     /**
      * Creates a HashMap of cars read from a CSV file, with car IDs as keys and Car objects as values.
      *
-     * @param filename The path to the CSV file containing car data.
+     * @param filename The path to the CSV file containing car data. Must inclue resources/____.csv to scan from the correct file
      * @return A HashMap containing car IDs as keys and corresponding Car objects as values.
      * @throws IOException If an I/O error occurs while reading the file.
      */
@@ -119,7 +119,7 @@ public class FileHandler {
     /**
      * Creates a HashMap of users read from a CSV file, with user IDs as keys and User objects as values.
      *
-     * @param filename The path to the CSV file containing user data.
+     * @param filename The path to the CSV file containing user data. Must inclue resources/____.csv to scan from the correct file
      * @return A HashMap containing user IDs as keys and corresponding User objects as values.
      * @throws IOException If an I/O error occurs while reading the file.
      */
@@ -150,7 +150,7 @@ public class FileHandler {
     /**
  * Updates a CSV file with car data using the provided filename, car map, and headers.
  *
- * @param filename The name of the CSV file to be updated.
+ * @param filename The name of the CSV file to be updated. Must inclue resources/____.csv to save to the correct folder
  * @param carMap   A HashMap containing car data, where the keys are integer IDs and the values are Car objects.
  * @param headers  A LinkedHashMap containing header names and their corresponding indices.
  *                 This is used to ensure consistent ordering of columns in the CSV file.
@@ -186,12 +186,12 @@ public static void updateCarFile(String filename, HashMap<Integer, Car> carMap, 
 /**
  * Updates a CSV file with user data using the provided filename, user map, and headers.
  *
- * @param filename The name of the CSV file to be updated.
- * @param userMap  A HashMap containing user data, where the keys are integer IDs and the values are User objects.
+ * @param filename The name of the CSV file to be updated. Must inclue resources/____.csv to save to the correct folder
+ * @param users  A HashMap containing user data, where the keys are integer IDs and the values are User objects.
  * @param headers  A LinkedHashMap containing header names and their corresponding indices.
  *                 This is used to ensure consistent ordering of columns in the CSV file.
  */
-public static void updateUserFile(String filename, HashMap<Integer, User> userMap, LinkedHashMap<String, Integer> headers) {
+public static void updateUserFile(String filename, HashMap<String, User> users, LinkedHashMap<String, Integer> headers) {
     try (FileWriter csvWriter = new FileWriter(filename, false)) {
         int size = headers.size();
         int count = 0;
@@ -204,12 +204,17 @@ public static void updateUserFile(String filename, HashMap<Integer, User> userMa
             }
         }
         csvWriter.append("\n");
+        //collect the usernames in a hashmap to have the ID values to print to file in the correct order
+        HashMap<Integer, String> usernameIds = new HashMap<>();
+        for (Map.Entry<String, User> entry : users.entrySet()) {
+            usernameIds.put(entry.getValue().getId(),entry.getKey());
+        }
 
         // Write user data
-        for (int i = 1; i <= userMap.size(); i++) {
-            User user = userMap.get(i);
+        for (int i = 1; i <= users.size(); i++) {
+            User user = users.get(usernameIds.get(i));
             csvWriter.append(user.ToStringCSV());
-            if (i != userMap.size()) {
+            if (i != users.size()) {
                 csvWriter.append("\n");
             }
         }
