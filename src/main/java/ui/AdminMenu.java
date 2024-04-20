@@ -3,9 +3,16 @@ package main.java.ui;
 import main.java.handlers.ShopManager;
 import java.util.Scanner;
 
+import main.java.models.Car;
+import java.util.HashMap;
+
+import main.java.models.User;
+
 public class AdminMenu implements Menu {
     private ShopManager shopManager;
     private Scanner scanner;
+    private HashMap<Integer, Car> cars;
+    private HashMap<String, User> users;
 
     public AdminMenu(ShopManager shopManager, Scanner scanner) {
         this.shopManager = shopManager;
@@ -30,13 +37,16 @@ public class AdminMenu implements Menu {
         do {
             displayOptions();
             System.out.print("Enter your choice: ");
-            input = scanner.nextLine();
+            input = scanner.next();
             switch (input) {
                 case "1":
-                    // shopManager.addCar();
+                    System.out.println("add car");
+                    cars = shopManager.addCar();
                     break;
                 case "2":
-                    // shopManager.removeCar();
+                    System.out.println("To delete a car, please enter the car ID: ");
+                    int id = scanner.nextInt();
+                    shopManager.removeCar(id);
                     break;
                 case "3":
                     // shopManager.updateCarInfo();
@@ -45,6 +55,7 @@ public class AdminMenu implements Menu {
                     // shopManager.viewTransactions();
                     break;
                 case "5":
+                    users = shopManager.addNewUser();
                     // shopManager.manageUsers();
                     break;
                 case "0":

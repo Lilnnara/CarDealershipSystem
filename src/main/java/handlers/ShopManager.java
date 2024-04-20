@@ -4,8 +4,7 @@ import java.util.Scanner;
 import main.java.models.Car;
 import main.java.models.User;
 import java.util.LinkedHashMap;
-import java.io.File;
-import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -45,41 +44,36 @@ public class ShopManager {
     // }
 
     // Admin functionality
-    public HashMap<Integer, Car> addCar(Car car, String filename, HashMap<Integer, Car> carMap) {
-        try {
-            LinkedHashMap<String, Integer> headers = FileHandler.fileHeaderIndex(filename);
-            HashMap<String, String> carAttributes = new HashMap<>();
+    public HashMap<Integer, Car> addCar() {
+        HashMap<String, String> carAttributes = new HashMap<>();
 
-            Scanner scanner = new Scanner(System.in);
-            // get admin input
-            System.out.println("Hello! to add a car we will need the following information: \n ");
+        Scanner scanner = new Scanner(System.in);
+        // get admin input
+        System.out.println("Hello! to add a car we will need the following information: \n ");
 
-            for (Map.Entry<String, Integer> entry : headers.entrySet()) {
-                System.out.println("Enter " + entry.getKey() + ":");
-                String userInput = scanner.nextLine();
-                carAttributes.put(entry.getKey(), userInput);
-            }
-
-            System.out.println(carAttributes);
-
-            // call factory to create car object
-            Car newCar = carFactory.create(carAttributes);
-
-            //add car to hashmap
-            carMap.put(Integer.parseInt(newCar.getId()), newCar);
-
-            //update csv with the new car <3
-            FileHandler.updateCarFile("car_data.csv", carMap, headers); 
-
-            scanner.close();
-            // RETURN HASHMAP
-            return carMap;
-            
-        } catch (IOException e) {
-            // Handle the IOException, such as printing an error message or logging it
-            e.printStackTrace(); // This prints the exception's stack trace to the console
+        for (Map.Entry<String, Integer> entry : carHeaderIndexMap.entrySet()) {
+            System.out.println("Enter " + entry.getKey() + ":");
+            String userInput = scanner.nextLine();
+            carAttributes.put(entry.getKey(), userInput);
         }
-        return carMap;
+
+        System.out.println(carAttributes);
+
+        // call factory to create car object
+        Car newCar = carFactory.create(carAttributes);
+
+        //print car to test
+        // System.out.println(newCar.toString());
+        //add car to hashmap
+        cars.put(Integer.parseInt(newCar.getId()), newCar);
+
+        System.out.println("Car added sucessfully!");
+        //update csv with the new car <3 uncomment if we want to update evrytime we add a car
+        // FileHandler.updateCarFile("car_data.csv", cars, carHeaderIndexMap); 
+
+        // scanner.close();
+        // RETURN HASHMAP
+        return cars;
     }
 
     public void getRevenueById(int id) {
@@ -93,11 +87,43 @@ public class ShopManager {
     public void removeCar(int carId) {
         // Remove car from HashMap
         // If needed, write changes to the CSV file
+        cars.remove(carId);
+        System.out.println("car with ID: "+ carId + " removed sucessfully");
+
     }
 
-    public void addNewUser(User user) {
+    public HashMap<String, User> addNewUser() {
         // Add new user to the HashMap
         // If needed, write changes to the CSV file
+        HashMap<String, String> userAttributes = new HashMap<>();
+
+        Scanner scanner = new Scanner(System.in);
+        // get admin input
+        System.out.println("Hello! to add a new user we will need the following information: \n ");
+
+        for (Map.Entry<String, Integer> entry : userHeaderIndexMap.entrySet()) {
+            System.out.println("Enter " + entry.getKey() + ":");
+            String userInput = scanner.nextLine();
+            userAttributes.put(entry.getKey(), userInput);
+        }
+
+        System.out.println(userAttributes);
+
+        // call factory to create car object
+        User newUser = userFactory.create(userAttributes);
+
+        //print car to test
+        // System.out.println(newCar.toString());
+        //add car to hashmap
+        users.put(newUser.getUsername(), newUser);
+
+        System.out.println("User added sucessfully!");
+        //update csv with the new car <3 uncomment if we want to update evrytime we add a car
+        // FileHandler.updateCarFile("car_data.csv", cars, carHeaderIndexMap); 
+
+        // scanner.close();
+        // RETURN HASHMAP
+        return users;
     }
 
     // User functionality
