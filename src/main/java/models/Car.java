@@ -1,4 +1,5 @@
 package main.java.models;
+import java.util.HashMap;
 
 /**
  * Represents a car in a dealership system.
@@ -183,5 +184,33 @@ public class Car {
                 "," + model +
                 "," + hasTurbo;
     }
-    
+    /**
+     * Outputs the Car object as a String of it's attributes in the order provided 
+     * by a HashMap containing attribute headers.
+     *
+     * @param attributes A HashMap containing the headerIndexMap
+     * @return A String of the attribute values in order
+     */
+    public String toStringDynamic(HashMap<String, Integer> headerIndexMap) {
+	    String[] attributes = new String[headerIndexMap.size()];
+        //use getOrDefault to order the attributes for printing as well and have in a separate method??
+        attributes[headerIndexMap.get("Capacity")] = "" + getCapacity();
+        attributes[headerIndexMap.get("Car Type")] = getCarType();
+        attributes[headerIndexMap.get("Cars Available")] = "" + getCarsAvailable();
+        attributes[headerIndexMap.get("Condition")] = getCondition();
+        attributes[headerIndexMap.get("Color")] = getColor();
+        attributes[headerIndexMap.get("ID")] = getId();
+        attributes[headerIndexMap.get("Year")] = "" + getYear();
+        attributes[headerIndexMap.get("Price")] = "" + getPrice();
+        attributes[headerIndexMap.get("Transmission")] = getTransmission();
+        attributes[headerIndexMap.get("VIN")] = getVin();
+        attributes[headerIndexMap.get("Fuel Type")] = getFuelType();
+        attributes[headerIndexMap.get("Model")] = getModel();
+        attributes[headerIndexMap.get("hasTurbo")] = "" + getHasTurbo();
+        String result = attributes[0];
+        for(int i = 1; i < attributes.length; i++){
+            result = result + "," + attributes[i];
+        }
+        return result;
+    }
 }
