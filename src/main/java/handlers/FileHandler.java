@@ -5,7 +5,7 @@ import main.java.factory.UserFactory;
 import main.java.factory.Factory;
 import main.java.models.Car;
 import main.java.models.User;
-
+import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -107,4 +107,76 @@ public class FileHandler {
     }
 
     // TODO: We need to create a method that updates CSV file for Car and User
+    /**
+ * Updates a CSV file with car data using the provided filename, car map, and headers.
+ *
+ * @param filename The name of the CSV file to be updated.
+ * @param carMap   A HashMap containing car data, where the keys are integer IDs and the values are Car objects.
+ * @param headers  A LinkedHashMap containing header names and their corresponding indices.
+ *                 This is used to ensure consistent ordering of columns in the CSV file.
+ */
+public static void updateCarFile(String filename, HashMap<Integer, Car> carMap, LinkedHashMap<String, Integer> headers) {
+    try (FileWriter csvWriter = new FileWriter(filename, false)) {
+
+        int size = headers.size();
+        int count = 0;
+
+        // Write headers
+        for (Map.Entry<String, Integer> entry : headers.entrySet()) {
+            csvWriter.append(entry.getKey());
+            if (++count < size) {
+                csvWriter.append(",");
+            }
+        }
+        csvWriter.append("\n");
+
+        // Write car data
+        for (int i = 1; i <= carMap.size(); i++) {
+            Car car = carMap.get(i);
+            csvWriter.append(car.toStringCSV());
+            if (i != carMap.size()) {
+                csvWriter.append("\n");
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+/**
+ * Updates a CSV file with user data using the provided filename, user map, and headers.
+ *
+ * @param filename The name of the CSV file to be updated.
+ * @param userMap  A HashMap containing user data, where the keys are integer IDs and the values are User objects.
+ * @param headers  A LinkedHashMap containing header names and their corresponding indices.
+ *                 This is used to ensure consistent ordering of columns in the CSV file.
+ */
+public static void updateUserFile(String filename, HashMap<Integer, User> userMap, LinkedHashMap<String, Integer> headers) {
+    try (FileWriter csvWriter = new FileWriter(filename, false)) {
+        int size = headers.size();
+        int count = 0;
+
+        // Write headers
+        for (Map.Entry<String, Integer> entry : headers.entrySet()) {
+            csvWriter.append(entry.getKey());
+            if (++count < size) {
+                csvWriter.append(",");
+            }
+        }
+        csvWriter.append("\n");
+
+        // Write user data
+        for (int i = 1; i <= userMap.size(); i++) {
+            User user = userMap.get(i);
+            csvWriter.append(user.ToStringCSV());
+            if (i != userMap.size()) {
+                csvWriter.append("\n");
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+
 }
