@@ -68,6 +68,7 @@ public class ShopManager {
         cars.put(Integer.parseInt(newCar.getId()), newCar);
 
         System.out.println("Car added sucessfully!");
+        
         //update csv with the new car <3 uncomment if we want to update evrytime we add a car
         // FileHandler.updateCarFile("car_data.csv", cars, carHeaderIndexMap); 
 

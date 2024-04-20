@@ -17,10 +17,12 @@ public class ShopRunner {
     public static void main(String[] args) {
         try {
             // Initialize ShopManager with user and car data
-            LinkedHashMap<String, Integer> carHeaderIndexMap = FileHandler.fileHeaderIndex("resources/car_data.csv");
-            LinkedHashMap<String, Integer> userHeaderIndexMap = FileHandler.fileHeaderIndex("resources/user_data.csv");
-            HashMap<String, User> users = FileHandler.createUserMap("resources/user_data.csv", userHeaderIndexMap);
-            HashMap<Integer, Car> cars = FileHandler.createCarMap("resources/car_data.csv", carHeaderIndexMap);
+            String carFile = "resources/car_data.csv";
+            String userFile = "resources/user_data.csv";
+            LinkedHashMap<String, Integer> carHeaderIndexMap = FileHandler.fileHeaderIndex(carFile);
+            LinkedHashMap<String, Integer> userHeaderIndexMap = FileHandler.fileHeaderIndex(userFile);
+            HashMap<String, User> users = FileHandler.createUserMap(userFile, userHeaderIndexMap);
+            HashMap<Integer, Car> cars = FileHandler.createCarMap(carFile, carHeaderIndexMap);
             shopManager = new ShopManager(cars, users, carHeaderIndexMap, userHeaderIndexMap);
             UserMenu userMenu = new UserMenu(shopManager, scanner);
             AdminMenu adminMenu = new AdminMenu(shopManager, scanner);
