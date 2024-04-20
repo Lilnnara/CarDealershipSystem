@@ -7,6 +7,8 @@ import main.java.models.User;
 
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.LinkedHashMap;
+
 
 public class ShopRunner {
     private static ShopManager shopManager;
@@ -15,9 +17,11 @@ public class ShopRunner {
     public static void main(String[] args) {
         try {
             // Initialize ShopManager with user and car data
-            HashMap<String, User> userMap = FileHandler.createUserMap("resources/user_data.csv");
-            HashMap<Integer, Car> carMap = FileHandler.createCarMap("resources/car_data.csv");
-            shopManager = new ShopManager(carMap, userMap);
+            LinkedHashMap<String, Integer> carHeaderIndexMap = FileHandler.fileHeaderIndex("resources/car_data.csv");
+            LinkedHashMap<String, Integer> userHeaderIndexMap = FileHandler.fileHeaderIndex("resources/user_data.csv");
+            HashMap<String, User> users = FileHandler.createUserMap("resources/user_data.csv", userHeaderIndexMap);
+            HashMap<Integer, Car> cars = FileHandler.createCarMap("resources/car_data.csv", carHeaderIndexMap);
+            shopManager = new ShopManager(cars, users, carHeaderIndexMap, userHeaderIndexMap);
             UserMenu userMenu = new UserMenu(shopManager, scanner);
             AdminMenu adminMenu = new AdminMenu(shopManager, scanner);
 
@@ -26,6 +30,12 @@ public class ShopRunner {
             System.out.println("*    ********** Welcome to the Car Dealership System! **********");
             System.out.println("*                                                              *");
             System.out.println("****************************************************************");
+
+            // Print loaded users and cars using forEach
+            // System.out.println("Loaded Users:");
+            // users.values().forEach(user -> System.out.println(user)); 
+            // System.out.println("Loaded Cars:");
+            // cars.values().forEach(car -> System.out.println(car)); 
             
             while (true) {
                 System.out.println("Please sign in as:");
@@ -37,19 +47,18 @@ public class ShopRunner {
                 String option = scanner.nextLine().trim();
 
                 switch (option) {
-                    case "1":
-                       
-                        
+                    case "1":                     
                         adminMenu.handleSelection();
                         break;
+
                     case "2":
-                       
-                       
                         userMenu.handleSelection();
                         break;
+
                     case "0":
                         System.out.println("Exiting the system...");
                         return; // Exit the loop and the program
+                        
                     default:
                         System.out.println("\n----- Invalid option selected. Please try again. -----\n");
                         continue;

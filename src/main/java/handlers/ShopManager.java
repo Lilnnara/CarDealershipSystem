@@ -10,17 +10,26 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import main.java.factory.CarFactory;
+import main.java.factory.UserFactory;
 
 public class ShopManager {
 
     private HashMap<Integer, Car> cars;
     private HashMap<String, User> users;
     private HashMap<Integer, List<String>> userTransactions; // Key: UserID, Value: List of transaction descriptions
+    private LinkedHashMap<String, Integer> carHeaderIndexMap;
+    private LinkedHashMap<String, Integer> userHeaderIndexMap;
     private CarFactory carFactory = new CarFactory();
+    private UserFactory userFactory = new UserFactory();
+    
 
-    public ShopManager(HashMap<Integer, Car> cars, HashMap<String, User> users) {
+    public ShopManager(HashMap<Integer, Car> cars, HashMap<String, User> users, 
+                       LinkedHashMap<String, Integer> carHeaderIndexMap,
+                       LinkedHashMap<String, Integer> userHeaderIndexMap) {
         this.cars = cars;
         this.users = users;
+        this.carHeaderIndexMap = carHeaderIndexMap;
+        this.userHeaderIndexMap = userHeaderIndexMap;
         this.userTransactions = new HashMap<>();
     }
 

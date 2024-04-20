@@ -48,10 +48,9 @@ public class FileHandler {
      * @return A HashMap containing car IDs as keys and corresponding Car objects as values.
      * @throws IOException If an I/O error occurs while reading the file.
      */
-    public static HashMap<Integer, Car> createCarMap(String filename) throws IOException {
+    public static HashMap<Integer, Car> createCarMap(String filename, LinkedHashMap<String, Integer> carHeaderIndexMap) throws IOException {
         HashMap<Integer, Car> carMap = new HashMap<>();
-        LinkedHashMap<String, Integer> carHeaderIndexMap = fileHeaderIndex(filename);
-
+        
         try (Scanner scanner = new Scanner(new File(filename))) {
             scanner.nextLine(); // Skip the header line
             while (scanner.hasNextLine()) {
@@ -83,9 +82,8 @@ public class FileHandler {
      * @return A HashMap containing user IDs as keys and corresponding User objects as values.
      * @throws IOException If an I/O error occurs while reading the file.
      */
-    public static HashMap<String, User> createUserMap(String filename) throws IOException {
+    public static HashMap<String, User> createUserMap(String filename, LinkedHashMap<String, Integer> userHeaderIndexMap) throws IOException {
         HashMap<String, User> userMap = new HashMap<>();
-        LinkedHashMap<String, Integer> userHeaderIndexMap = fileHeaderIndex(filename);
 
         try (Scanner scanner = new Scanner(new File(filename))) {
             scanner.nextLine(); // Skip the header line
