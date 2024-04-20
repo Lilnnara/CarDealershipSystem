@@ -98,7 +98,7 @@ public class User extends Person {
      * Getter for username
      * @return The username of the user.
      */
-    protected String getUsername() {
+    public String getUsername() {
         return username;
     }
 
