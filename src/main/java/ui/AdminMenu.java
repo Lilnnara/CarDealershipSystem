@@ -39,7 +39,7 @@ public class AdminMenu implements Menu {
         do {
             displayOptions();
             System.out.print("Enter your choice: ");
-            input = scanner.next();
+            input = scanner.nextLine();
             switch (input) {
                 case "1":
                     System.out.println("add car");

@@ -80,9 +80,9 @@ public class ShopManager {
         System.out.println("Car added sucessfully!");
         
         //update csv with the new car <3 uncomment if we want to update evrytime we add a car
-        // FileHandler.updateCarFile("car_data.csv", cars, carHeaderIndexMap); 
+        FileHandler.updateCarFile("resources/car_data.csv", cars, carHeaderIndexMap); 
 
-        scanner.close();
+        //scanner.close();
         // RETURN HASHMAP
         return cars;
     }
@@ -129,8 +129,8 @@ public class ShopManager {
         users.put(newUser.getUsername(), newUser);
 
         System.out.println("User added sucessfully!");
-        //update csv with the new car <3 uncomment if we want to update evrytime we add a car
-        // FileHandler.updateCarFile("car_data.csv", cars, carHeaderIndexMap); 
+        //update csv with the new User <3 uncomment if we want to update evrytime we add a User
+        FileHandler.updateUserFile("resources/user_data.csv", users, userHeaderIndexMap); 
 
         // scanner.close();
         // RETURN HASHMAP

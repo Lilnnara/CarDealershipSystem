@@ -34,7 +34,7 @@ public class User extends Person {
      * Getter for id
      * @return The unique identifier of the user.
      */
-    protected int getId() {
+    public int getId() {
         return id;
     }
    
