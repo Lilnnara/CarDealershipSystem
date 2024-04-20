@@ -133,5 +133,17 @@ public class User extends Person {
     public String toString(){
         return "" + id + "," + super.getFirstName() + "," + super.getLastName() + "," + moneyAvailable + "," + carsPurchased + "," + (minecarsMembership ? "True" : "False") + "," + username + "," + password;
     }
+
+    public String ToStringCSV() {
+        return id +
+                "," + super.getFirstName()+
+                "," + super.getLastName() +
+                "," + moneyAvailable +
+                "," + carsPurchased +
+                "," + minecarsMembership +
+                "," + username +
+                "," + password;
+    }
+    
 }
 

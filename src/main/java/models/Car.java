@@ -168,5 +168,20 @@ public class Car {
                 color + "," + year + "," + price + "," + transmission + "," + vin + "," + fuelType + "," +
                 model + "," + hasTurbo;
     }
+    public String toStringCSV() {
+        return capacity +
+                "," + carType +
+                "," + carsAvailable +
+                "," + condition +
+                "," + color +
+                "," + id +
+                "," + year +
+                "," + price +
+                "," + transmission +
+                "," + vin +
+                "," + fuelType +
+                "," + model +
+                "," + hasTurbo;
+    }
     
 }
