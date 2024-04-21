@@ -3,6 +3,7 @@ package main.java.ui;
 import main.java.handlers.ShopManager;
 import main.java.models.User;
 import java.util.Scanner;
+import main.java.utils.Log;
 
 public class UserMenu implements Menu {
     private ShopManager shopManager;
@@ -22,6 +23,7 @@ public class UserMenu implements Menu {
         String password = scanner.nextLine();
         if(shopManager.authenticateUser(username,password) != null){
             currentUser = shopManager.authenticateUser(username,password);
+            shopManager.logsLinkedList.add(new Log("User " + currentUser.getUsername() + " ","Logged in."));
             handleSelection();
         }
         else{
@@ -52,9 +54,11 @@ public class UserMenu implements Menu {
             input = scanner.nextLine();
             switch (input) {
                 case "1":
+                    shopManager.logsLinkedList.add(new Log("User " + currentUser.getUsername() + " ","Browsed Cars."));
                     shopManager.browseCars();
                     break;
                 case "2":
+                    shopManager.logsLinkedList.add(new Log("User " + currentUser.getUsername() + " ","Filtered Cars."));
                     filterCarsMenu(); 
                     break;
                 case "3":
@@ -74,10 +78,11 @@ public class UserMenu implements Menu {
                     }
                     break;
                 case "0":
-                System.out.println("\n----- Exiting User Menu... -----\n");
-                // assign currentUser as null to sign the user out of the menu.
-                currentUser = null;
-                return; // Exit the loop
+                    shopManager.logsLinkedList.add(new Log("User " + currentUser.getUsername() + " ","Logged out."));
+                    System.out.println("\n----- Exiting User Menu... -----\n");
+                    // assign currentUser as null to sign the user out of the menu.
+                    currentUser = null;
+                    return; // Exit the loop
                 default:
                     System.out.println("\n----- User: Invalid option. Please try again. -----\n");
             }

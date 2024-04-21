@@ -5,11 +5,12 @@ import main.java.models.Car;
 import main.java.models.User;
 import main.java.models.Ticket;
 import java.util.Date;
+import main.java.utils.Log;
 
 import java.util.LinkedHashMap;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
+import java.util.LinkedList;
 import main.java.factory.CarFactory;
 import main.java.factory.UserFactory;
 import main.java.factory.TicketFactory;
@@ -23,6 +24,7 @@ public class ShopManager {
     private LinkedHashMap<String, Integer> carHeaderIndexMap;
     private LinkedHashMap<String, Integer> userHeaderIndexMap;
     private LinkedHashMap<String, Integer> ticketHeaderIndexMap;
+    public LinkedList<Log> logsLinkedList = new LinkedList<Log>();
     private CarFactory carFactory = new CarFactory();
     private UserFactory userFactory = new UserFactory();
     private TicketFactory ticketFactory = new TicketFactory();
@@ -77,8 +79,7 @@ public class ShopManager {
         cars.put(Integer.parseInt(newCar.getId()), newCar);
         System.out.println("Car added sucessfully!");
         FileHandler.updateCarFile("resources/car_data.csv", cars, carHeaderIndexMap); 
-
-
+        logsLinkedList.add(new Log("Admin ","Added a car.")); 
         return cars;
     }
 
@@ -90,6 +91,7 @@ public class ShopManager {
      * @return The total revenue for the car if found, or -1.0 if no transactions were found.
      */
     public double getRevenueById(String carId) {
+        logsLinkedList.add(new Log("Admin ","got revenue by ID."));
         double revenue = 0.0;
         boolean typeFound = false; // Flag to check if any relevant tickets are found
 
@@ -125,6 +127,7 @@ public class ShopManager {
      * @return The total revenue for the car type if found, or -1.0 if no transactions were found.
      */
     public double getRevenueByCarType(String carType) {
+        logsLinkedList.add(new Log("Admin ","got revenue by Car Type."));
         double revenue = 0.0;
         boolean typeFound = false;
 
@@ -164,7 +167,8 @@ public class ShopManager {
         // If needed, write changes to the CSV file
         cars.remove(carId);
         System.out.println("car with ID: "+ carId + " removed sucessfully");
-
+        FileHandler.updateCarFile("resources/car_data.csv", cars, carHeaderIndexMap); 
+        logsLinkedList.add(new Log("Admin ","Removed a car."));
     }
 
     public HashMap<String, User> addNewUser() {
@@ -189,7 +193,7 @@ public class ShopManager {
         System.out.println("User added sucessfully!");
         //update csv with the new User <3 uncomment if we want to update evrytime we add a User
         FileHandler.updateUserFile("resources/user_data.csv", users, userHeaderIndexMap); 
-
+        logsLinkedList.add(new Log("Admin ","Added a user."));
         // scanner.close();
         // RETURN HASHMAP
         return users;
@@ -289,6 +293,7 @@ public class ShopManager {
         // Record transaction
         Ticket returnTicket = new Ticket(tickets.size(), user.getFirstName(), user.getLastName(), user.getUsername(), car.getId(), car.getModel(), car.getCarType(), car.getYear(), car.getPrice(), price, new Date(), false);
         tickets.put(tickets.size(), returnTicket);
+        logsLinkedList.add(new Log("User " + user.getUsername() + " ","Purchased a car."));
     }
 
     public void returnCarUi(User user) {    
@@ -324,6 +329,7 @@ public class ShopManager {
         // Record transaction
         Ticket returnTicket = new Ticket(tickets.size(), ticket.getUserFirstName(), ticket.getUserLastName(), ticket.getUsername(), ticket.getCarId(), ticket.getPurchasedCarModel(), ticket.getCarType(), ticket.getCarYear(), ticket.getOriginalPrice(), ticket.getFinalPrice(), new Date(), true);
         tickets.put(tickets.size(), returnTicket);
+        logsLinkedList.add(new Log("User " + user.getUsername() + " ","Returned a car."));
     }
 
     /**
@@ -383,6 +389,7 @@ public class ShopManager {
         if (userTickets.size() == 0) {
             System.out.println("No transactions found for the specified user.");
         }
+        logsLinkedList.add(new Log("User " + username + " ","Viewed transactions."));
     }
 
     public HashMap<Integer, Ticket> getUserTransactions(String username) {

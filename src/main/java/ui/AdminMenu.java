@@ -2,6 +2,7 @@ package main.java.ui;
 
 import main.java.handlers.ShopManager;
 import java.util.Scanner;
+import main.java.utils.Log;
 
 /**
  * This class represents the administration menu for managing the car dealership system.
@@ -30,6 +31,7 @@ public class AdminMenu implements Menu {
         System.out.print("Hello Admin.\nPlease enter Admin code: ");
         String code = scanner.nextLine();
         if (shopManager.authenticateAdmin(code)) {
+            shopManager.logsLinkedList.add(new Log("Admin ","Logged in."));
             handleSelection();
         } else {
             System.out.println("Invalid Admin Login. Please check if the password is correct and try again.");
@@ -84,6 +86,7 @@ public class AdminMenu implements Menu {
                     shopManager.addNewUser();
                     break;
                 case "0":
+                    shopManager.logsLinkedList.add(new Log("Admin ","Logged out."));
                     System.out.println("\n----- Exiting Admin Menu... -----\n");
                     return; // Exit the loop
                 default:
