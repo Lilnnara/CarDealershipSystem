@@ -114,7 +114,7 @@ public class User extends Person {
      * Getter for password
      * @return The password of the user.
      */
-    protected String getPassword() {
+    public String getPassword() {
         return password;
     }
 

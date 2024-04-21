@@ -66,7 +66,7 @@ public class ShopRunner {
                         adminMenu.handleSelection();
                         break;
                     case "2":
-                        userMenu.handleSelection();
+                        userMenu.login();
                         break;
                     case "0":
                         System.out.println("Exiting the system...");
