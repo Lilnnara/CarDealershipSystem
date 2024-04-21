@@ -22,7 +22,7 @@ public abstract class Person {
      * Getter for firstName
      * @return The first name of the person.
      */
-    protected String getFirstName() {
+    public String getFirstName() {
         return firstName;
     }
 
@@ -38,7 +38,7 @@ public abstract class Person {
      * Getter for lastName
      * @return The last name of the person.
      */
-    protected String getLastName() {
+    public String getLastName() {
         return lastName;
     }
 

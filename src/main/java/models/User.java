@@ -50,7 +50,7 @@ public class User extends Person {
      * Getter for moneyAvailable
      * @return The amount of money available to the user.
      */
-    protected double getMoneyAvailable() {
+    public double getMoneyAvailable() {
         return moneyAvailable;
     }
 
@@ -82,7 +82,7 @@ public class User extends Person {
      * Getter for minecarsMembership
      * @return True if the user has a Minecars membership, false otherwise.
      */
-    protected boolean isMinecarsMembership() {
+    public boolean isMinecarsMembership() {
         return minecarsMembership;
     }
 

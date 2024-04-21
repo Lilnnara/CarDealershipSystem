@@ -216,16 +216,79 @@ public class ShopManager {
         return 1.0625 * price;
     }
     
+    public void purchaseCarUi(User user) {
+        System.out.println("Which car would you like to purchase?");
+        System.out.println("Please enter a car Id:");
+        Scanner scanner = new Scanner(System.in);
+        if(scanner.hasNextInt()){
+            int input = scanner.nextInt();
+            if(cars.get(input)!= null){
+                Car car = cars.get(input);
+                if(car.getCarsAvailable() < 1){
+                    //if the number of available cars is zero or less return eror and exit method with return;
+                    System.out.println("\t The car you are trying to purchase is currently out of stock.");
+                    return;
+                }
+                double price = 0;
+                //calculate reduced cost if the user is a member or not.
+                if(user.isMinecarsMembership()){
+                    //10% off or 90% of the total cost
+                    price = (0.90) * car.getPrice();
+                }
+                else{
+                    price = car.getPrice();
+                }
+                //if the car is outside of their budget return eror and exit method with return;
+                if(price > user.getMoneyAvailable()){
+                    System.out.println("\t The car you are trying to purchase is outside of your available funds.");
+                    return;
+                }
+                //if car is within budget for the user, ask them if they would like to continue with purchse and if so generate and return ticket.  
+                System.out.println("\t The car you are trying to purchase is in stock and within your budget!");
+                if(user.isMinecarsMembership()){
+                    System.out.println("\t Would you like to purchase for the cost of: " + price + "(The member discout of %15 off the asking price?)");
+                }
+                else{
+                    System.out.println("\t Would you like to purchase for the cost of: " + price);
+                }
+                System.out.println(car);
+                System.out.println("\t 1) Yes, 2) No");
+                if(scanner.hasNextInt()){
+                    input = scanner.nextInt();
+                    if(input == 1){
+                        purchaseCar(user, car);
+                    }
+                }
+            }
+            else{
+                System.out.println("Invalid Car ID for purchase.");
+                return;
+            }
+        }
+        else {
+            System.out.println("Invalid Car ID for purchase.");
+            return;
+        }
+
+    }
+
     // User functionality
-    public void purchaseCar(User user, int carId) {
-        Car car = cars.get(carId);
-        double price = car.getPrice();
+    public void purchaseCar(User user, Car car) {
+        double price = 0;
+        if(user.isMinecarsMembership()){
+            price = getCostAfterTaxes(getMembershipCost(car));
+        }
+        else{
+            price = getCostAfterTaxes(car.getPrice());
+        }
         // Process car purchase
         // Update user's cars purchased
         updateUserData(user, true, price, 1);
         // Update cars available
         updateStock(car, true, 1);
         // Record transaction
+        Ticket returnTicket = new Ticket(tickets.size(), user.getFirstName(), user.getLastName(), user.getUsername(), car.getId(), car.getModel(), car.getCarType(), car.getYear(), car.getPrice(), price, new Date(), false);
+        tickets.put(tickets.size(), returnTicket);
     }
 
     public void returnCarUi(User user) {    

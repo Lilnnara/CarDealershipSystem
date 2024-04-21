@@ -59,8 +59,8 @@ public class UserMenu implements Menu {
                     break;
                 case "3":
                     // Purchase a car
-                    //shopManager.purchaseCar(, 0);
                     //use currentUser to access the users finance and information
+                    shopManager.purchaseCarUi(currentUser);
                     break;
                 case "4":
                     // Return a car
