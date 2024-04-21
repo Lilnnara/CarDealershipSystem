@@ -13,7 +13,7 @@ public class Log {
      * @param UsernameIn
      * @param eventDescriptionIn
      */
-    protected Log(String UsernameIn, String eventDescriptionIn){
+    public Log(String UsernameIn, String eventDescriptionIn){
         //generate current date and time and assign as a string to timestamp
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
