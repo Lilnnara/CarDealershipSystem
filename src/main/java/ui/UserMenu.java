@@ -1,15 +1,32 @@
 package main.java.ui;
 
 import main.java.handlers.ShopManager;
+import main.java.models.User;
 import java.util.Scanner;
 
 public class UserMenu implements Menu {
     private ShopManager shopManager;
     private Scanner scanner;
+    private User currentUser; 
 
     public UserMenu(ShopManager shopManager, Scanner scanner) {
         this.shopManager = shopManager;
         this.scanner = scanner;
+    }
+
+    public void login(){
+        System.out.print("Username: ");
+        String username = scanner.nextLine();
+        System.out.print("Password: ");
+        String password = scanner.nextLine();
+        if(shopManager.userLogin(username,password) != null){
+            currentUser = shopManager.userLogin(username,password);
+            handleSelection();
+        }
+        else{
+            currentUser = null;
+            System.out.println("Invalid User Login.  Please check if Username and Password are correct and try again.");
+        }
     }
 
     @Override
@@ -41,6 +58,7 @@ public class UserMenu implements Menu {
                     break;
                 case "3":
                     // Purchase a car
+                    //use currentUser to access the users finance and information
                     break;
                 case "4":
                     // Return a car
@@ -50,6 +68,8 @@ public class UserMenu implements Menu {
                     break;
                 case "0":
                 System.out.println("\n----- Exiting User Menu... -----\n");
+                // assign currentUser as null to sign the user out of the menu.
+                currentUser = null;
                 return; // Exit the loop
                 default:
                     System.out.println("\n----- User: Invalid option. Please try again. -----\n");
