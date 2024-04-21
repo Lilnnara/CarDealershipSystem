@@ -63,7 +63,7 @@ public class ShopRunner {
 
                 switch (option) {
                     case "1":
-                        adminMenu.handleSelection();
+                        adminMenu.login();
                         break;
                     case "2":
                         userMenu.login();

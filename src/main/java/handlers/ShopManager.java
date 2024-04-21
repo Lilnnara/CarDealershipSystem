@@ -46,7 +46,7 @@ public class ShopManager {
         return "1234".equals(adminCode); // This could later check against a more secure method
     }
 
-    public User userLogin(String username, String password){
+    public User authenticateUser(String username, String password){
         User user = users.get(username);
         if(user != null && user.getPassword().equals(password)){
             return user;

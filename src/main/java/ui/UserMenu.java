@@ -14,13 +14,14 @@ public class UserMenu implements Menu {
         this.scanner = scanner;
     }
 
+    @Override
     public void login(){
         System.out.print("Username: ");
         String username = scanner.nextLine();
         System.out.print("Password: ");
         String password = scanner.nextLine();
-        if(shopManager.userLogin(username,password) != null){
-            currentUser = shopManager.userLogin(username,password);
+        if(shopManager.authenticateUser(username,password) != null){
+            currentUser = shopManager.authenticateUser(username,password);
             handleSelection();
         }
         else{
