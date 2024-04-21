@@ -155,20 +155,26 @@ public class Car {
     public boolean getHasTurbo() { return hasTurbo; }
     public void setHasTurbo(boolean hasTurbo) { this.hasTurbo = hasTurbo; }
 
-    // @Override
-    // public String toString() {
-    //     return "Capacity: " + capacity + ", Car Type: " + carType + ", Cars Available: " + carsAvailable +
-    //             ", Condition: " + condition + ", Color: " + color + ", ID: " + id +
-    //             ", Year: " + year + ", Price: " + price + ", Transmission: " + transmission +
-    //             ", VIN: " + vin + ", Fuel Type: " + fuelType + ", Model: " + model +
-    //             ", hasTurbo: " + hasTurbo;
-    // }
+
     @Override
     public String toString() {
-        return "" + id + "," + carType + "," + capacity + "," + carsAvailable + "," + condition + "," +
-                color + "," + year + "," + price + "," + transmission + "," + vin + "," + fuelType + "," +
-                model + "," + hasTurbo;
+        return "Car ID: " + id +
+               "\nCar Type: " + carType +
+               "\nCapacity: " + capacity +
+               "\nAvailable Units: " + carsAvailable +
+               "\nCondition: " + condition +
+               "\nColor: " + color +
+               "\nYear: " + year +
+               "\nPrice: $" + price +
+               "\nTransmission: " + transmission +
+               "\nVIN: " + vin +
+               "\nFuel Type: " + fuelType +
+               "\nModel: " + model +
+               "\nHas Turbo: " + (hasTurbo ? "Yes" : "No") +
+               "\n-----------------------------------------";
+               
     }
+    
     public String toStringCSV() {
         return capacity +
                 "," + carType +

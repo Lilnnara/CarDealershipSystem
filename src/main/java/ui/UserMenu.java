@@ -34,7 +34,7 @@ public class UserMenu implements Menu {
     public void displayOptions() {
         System.out.println("\n--- User Menu ---");
         System.out.println("1. Browse all cars");
-        System.out.println("2. View available cars");
+        System.out.println("2. Filter cars");
         System.out.println("3. Purchase a car");
         System.out.println("4. Return a car");
         System.out.println("5. View transaction history");
@@ -52,10 +52,10 @@ public class UserMenu implements Menu {
             input = scanner.nextLine();
             switch (input) {
                 case "1":
-                    // Handle ALL CARS
+                    shopManager.browseCars();
                     break;
                 case "2":
-                    // View available cars
+                    filterCarsMenu(); 
                     break;
                 case "3":
                     // Purchase a car
@@ -65,7 +65,11 @@ public class UserMenu implements Menu {
                     // Return a car
                     break;
                 case "5":
-                    // View transaction history
+                    if (currentUser != null) {
+                        shopManager.viewUserTransactions(currentUser.getUsername());
+                    } else {
+                        System.out.println("You need to be logged in to view transaction history.");
+                    }
                     break;
                 case "0":
                 System.out.println("\n----- Exiting User Menu... -----\n");
@@ -77,4 +81,34 @@ public class UserMenu implements Menu {
             }
         } while (!input.equals("0"));
     }
+
+    private void filterCarsMenu() {
+        String choice;
+        do {
+            System.out.println("\n--- Filter Cars ---");
+            System.out.println("1. New Cars");
+            System.out.println("2. Used Cars");
+            System.out.println("3. Available Cars");
+            System.out.println("0. Go back");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextLine();
+            switch (choice) {
+                case "1":
+                    shopManager.filterCars("New");
+                    break;
+                case "2":
+                    shopManager.filterCars("Used");
+                    break;
+                case "3":
+                    shopManager.filterCars("Available");
+                    break;
+                case "0":
+                    System.out.println("Returning to main menu...");
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        } while (!choice.equals("0"));
+    }
+    
 }

@@ -19,7 +19,6 @@ public class ShopManager {
     private HashMap<Integer, Car> cars;
     private HashMap<String, User> users;
     private HashMap<Integer, Ticket> tickets;
-    private HashMap<Integer, List<String>> userTransactions; // Key: UserID, Value: List of transaction descriptions
     private LinkedHashMap<String, Integer> carHeaderIndexMap;
     private LinkedHashMap<String, Integer> userHeaderIndexMap;
     private LinkedHashMap<String, Integer> ticketHeaderIndexMap;
@@ -37,7 +36,6 @@ public class ShopManager {
         this.tickets = tickets;
         this.carHeaderIndexMap = carHeaderIndexMap;
         this.userHeaderIndexMap = userHeaderIndexMap;
-        this.userTransactions = new HashMap<>();
         this.ticketHeaderIndexMap = ticketHeaderIndexMap;
         
     }
@@ -45,6 +43,7 @@ public class ShopManager {
     public boolean authenticateAdmin(String adminCode) {
         return "1234".equals(adminCode); // This could later check against a more secure method
     }
+
 
     public User authenticateUser(String username, String password){
         User user = users.get(username);
@@ -56,12 +55,6 @@ public class ShopManager {
         }
     }
 
-    // public boolean authenticateUser(String username, String password) {
-    // // Here, you would check the credentials against those stored in userMap
-    // User user = userMap.get(username.hashCode()); // Example hash mapping, adjust
-    // based on actual key
-    // return user != null && user.getPassword().equals(password);
-    // }
 
     // Admin functionality
     public HashMap<Integer, Car> addCar() {
@@ -81,9 +74,6 @@ public class ShopManager {
 
         // call factory to create car object
         Car newCar = carFactory.create(carAttributes);
-
-        //print car to test
-        // System.out.println(newCar.toString());
         //add car to hashmap
         cars.put(Integer.parseInt(newCar.getId()), newCar);
 
@@ -127,9 +117,6 @@ public class ShopManager {
             String userInput = scanner.nextLine();
             userAttributes.put(entry.getKey(), userInput);
         }
-
-        System.out.println(userAttributes);
-
         // call factory to create car object
         User newUser = userFactory.create(userAttributes);
 
@@ -164,15 +151,57 @@ public class ShopManager {
         // If needed, write changes to the CSV files
     }
 
-    public HashMap<Integer, Car> browseCars() {
-        // Return a list of available cars
-        return cars;
+    public void browseCars() {
+        System.out.println("Displaying all cars:\n");
+        for (Car car : cars.values()) {
+            System.out.println(car);
+            System.out.println("--------------------------------------------------"); // separator for readability
     }
 
-    public List<String> viewUserTransactions(int userId) {
-        // Return a list of past transactions for a given user
-        return userTransactions.getOrDefault(userId, List.of());
+   
     }
+    
+    public void filterCars(String filterOption) {
+        System.out.println();
+        switch (filterOption) {
+            case "New":
+                cars.values().stream()
+                    .filter(car -> "New".equalsIgnoreCase(car.getCondition()))
+                    .forEach(System.out::println);
+                break;
+            case "Used":
+                cars.values().stream()
+                    .filter(car -> "Used".equalsIgnoreCase(car.getCondition()))
+                    .forEach(System.out::println);
+                break;
+            case "Available":
+                cars.values().stream()
+                    .filter(car -> car.getCarsAvailable() > 0)
+                    .forEach(System.out::println);
+                break;
+            default:
+                System.out.println("No such filter option available");
+        }
+    }
+    
+
+    public void viewUserTransactions(String username) {
+        System.out.println();
+        System.out.println("Fetching transactions for user: " + username);
+        boolean transactionsFound = false;
+        
+        for (Ticket ticket : tickets.values()) {
+            if (ticket.getUsername().equals(username)) {
+                System.out.println(ticket);
+                transactionsFound = true;
+            }
+        }
+        
+        if (!transactionsFound) {
+            System.out.println("No transactions found for the specified user.");
+        }
+    }
+    
 
     // Additional helper methods as needed...
 }
