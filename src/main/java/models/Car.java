@@ -219,4 +219,20 @@ public class Car {
         }
         return result;
     }
+    /**
+     * Updates the carsAvailable.  Adds the "amount" value if isIncrease is True, 
+     * and subtracts the "amount" value if isIncrease is false as it would then be a decrease.
+     * @param isIncrease boolean value, true if the number of carsAvailable is increasing.
+     * @param amount the amount the carsAvailable is being increased or decreased by.
+     */
+    public void updateCarsAvailable(boolean isIncrease, int amount){
+        //add the amount to the balance
+        if(isIncrease){
+            setCarsAvailable(getCarsAvailable() + amount);;
+        }
+        //if deposit is false then the transaction is a withdrawl and the amount should be subtracted
+        else{
+            setCarsAvailable(getCarsAvailable() - amount);
+        }
+    }
 }
