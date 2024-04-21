@@ -53,7 +53,7 @@ public class AdminMenu implements Menu {
     }
 
     /**
-     * Handles the user's menu selection.
+     * Handles the admin user's menu selection.
      * This method processes input from the admin and calls the corresponding methods in ShopManager.
      */
     @Override

@@ -155,6 +155,11 @@ public class Car {
     public void setHasTurbo(boolean hasTurbo) { this.hasTurbo = hasTurbo; }
 
 
+    
+    /** 
+     * Method to return String value of Car object
+     * @return String
+     */
     @Override
     public String toString() {
         return "Car ID: " + id +
@@ -174,6 +179,10 @@ public class Car {
                
     }
     
+    /** 
+     * String to print to CSV
+     * @return String
+     */
     public String toStringCSV() {
         return capacity +
                 "," + carType +
@@ -187,7 +196,7 @@ public class Car {
                 "," + vin +
                 "," + fuelType +
                 "," + model +
-                "," + hasTurbo;
+                "," + (hasTurbo?"Yes":"No");
     }
     /**
      * Updates the carsAvailable.  Adds the "amount" value if isIncrease is True, 
