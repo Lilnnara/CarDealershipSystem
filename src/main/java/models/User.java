@@ -135,14 +135,14 @@ public class User extends Person {
     }
 
     public String ToStringCSV() {
-        return id +
-                "," + super.getFirstName()+
+        return  moneyAvailable +
+                "," + password +
                 "," + super.getLastName() +
-                "," + moneyAvailable +
+                "," + id +
                 "," + carsPurchased +
-                "," + minecarsMembership +
+                "," + super.getFirstName()+
                 "," + username +
-                "," + password;
+                "," + minecarsMembership;
     }
     
     /**
