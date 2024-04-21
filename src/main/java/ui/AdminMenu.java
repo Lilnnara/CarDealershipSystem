@@ -22,6 +22,18 @@ public class AdminMenu implements Menu {
     }
 
     @Override
+    public void login(){
+        System.out.print("Hello Admin. \n Please enter Admin Username: ");
+        String username = scanner.nextLine();
+        if(shopManager.authenticateAdmin(username)){
+            handleSelection();
+        }
+        else{
+            System.out.println("Invalid Admin Login.  Please check if Password is correct and try again.");
+        }
+    }
+
+    @Override
     public void displayOptions() {
         System.out.println("\n--- Admin Menu ---");
         System.out.println("1. Add a new car");
