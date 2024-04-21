@@ -4,6 +4,7 @@ import java.util.Scanner;
 import main.java.models.Car;
 import main.java.models.User;
 import main.java.models.Ticket;
+import java.util.Date;
 
 import java.util.LinkedHashMap;
 import java.util.HashMap;
@@ -194,23 +195,72 @@ public class ShopManager {
         return users;
     }
 
-    // User functionality
-    public void purchaseCar(int userId, int carId) {
-        // Process car purchase
-        // Update user's cars purchased
-        // Update cars available
-        // Record transaction
-        // If needed, write changes to the CSV files
+    public void updateStock(Car car, boolean isPurchase, int amount){
+        car.updateCarsAvailable(isPurchase, amount);
+        FileHandler.updateCarFile("resources/car_data.csv", cars, carHeaderIndexMap); 
     }
 
-    public void returnCar(int userId, int carId) {
+    public void updateUserData(User user, boolean isPurchase, double moneyAmount, int carAmount){
+        user.updateCarsPurchased(isPurchase, carAmount);
+        user.updateMoneyAvailable(isPurchase, moneyAmount);
+        FileHandler.updateUserFile("resources/user_data.csv", users, userHeaderIndexMap); 
+    }
+
+    public double getMembershipCost(Car car){
+        //10% off means cost is 90% of the original aka 0.9
+        return 0.9*(car.getPrice());
+    }
+
+    public double getCostAfterTaxes(double price){
+        // state taxes are 6.25% so an aditional 0.0625 out of 1 so 1.0625 times price
+        return 1.0625 * price;
+    }
+    
+    // User functionality
+    public void purchaseCar(User user, int carId) {
+        Car car = cars.get(carId);
+        double price = car.getPrice();
+        // Process car purchase
+        // Update user's cars purchased
+        updateUserData(user, true, price, 1);
+        // Update cars available
+        updateStock(car, true, 1);
+        // Record transaction
+    }
+
+    public void returnCarUi(User user) {    
+        HashMap<Integer, Ticket> userTickets = getUserTransactions(user.getUsername());
+        if(userTickets.size()==0){
+            System.out.println("User does not have any Cars to return.");
+            return;
+        }
+        System.out.println("Which car would you like to return?");
+        viewUserTransactions(user.getUsername());
+        System.out.println("Please enter a ticket Id from the above list:");
+
+        Scanner scanner = new Scanner(System.in);
+        if(scanner.hasNextInt()){
+            int input = scanner.nextInt();
+            if(userTickets.get(input)!= null){
+                returnCar(user, userTickets.get(input));
+            }
+            else{
+                System.out.println("Invalid Ticket ID for return.");
+            }
+        }
+    }
+
+    public void returnCar(User user, Ticket ticket) {
+        Car car = cars.get(Integer.parseInt(ticket.getCarId()));
+        double price = car.getPrice();
         // Process car return
         // Update user's cars purchased
+        updateUserData(user, false, price, 1);
         // Update cars available
+        updateStock(car, false, 1);
         // Record transaction
-        // If needed, write changes to the CSV files
-
-        // User should be able to return a car (The user should get the money back, the car should no longer appear in user’s purchased cars, car csv should be updated accordingly) 
+        Ticket returnTicket = new Ticket(tickets.size(), ticket.getUserFirstName(), ticket.getUserLastName(), ticket.getUsername(), ticket.getCarId(), ticket.getPurchasedCarModel(), ticket.getCarType(), ticket.getCarYear(), ticket.getOriginalPrice(), ticket.getFinalPrice(), new Date(), true);
+        tickets.put(tickets.size(), returnTicket);
     }
 
     /**
@@ -263,20 +313,23 @@ public class ShopManager {
     public void viewUserTransactions(String username) {
         System.out.println();
         System.out.println("Fetching transactions for user: " + username);
-        boolean transactionsFound = false;
-        
-        for (Ticket ticket : tickets.values()) {
-            if (ticket.getUsername().equals(username)) {
-                System.out.println(ticket);
-                transactionsFound = true;
-            }
+        HashMap<Integer, Ticket> userTickets = getUserTransactions(username);
+        for (Ticket ticket : userTickets.values()) {
+            System.out.println(ticket);
         }
-        
-        if (!transactionsFound) {
+        if (userTickets.size() == 0) {
             System.out.println("No transactions found for the specified user.");
         }
     }
 
-
+    public HashMap<Integer, Ticket> getUserTransactions(String username) {
+        HashMap<Integer, Ticket> userTickets = new HashMap<>();
+        for (int i = 0; i < tickets.size(); i++){
+            if (tickets.get(i).getUsername().equals(username)) {
+                userTickets.put(i, tickets.get(i));
+            }
+        }
+        return userTickets;
+    }
 
 }
