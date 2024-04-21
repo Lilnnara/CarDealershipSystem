@@ -1,4 +1,12 @@
 TicketID,FirstName,LastName,Username,CarID,CarModel,CarType,CarYear,OriginalPrice,FinalPrice,PurchaseDate,TicketType
-1,Hermione,Granger,hermionegranger,1,Honda Fit,Hatchback,2005,23471.55,22400.00,2024-04-20,Purchase
+1,Hermione,Granger,hermionegranger,1,Honda Fit,Hatchback,2005,23471.55,22400.0,2024-04-20,Purchase
 2,Jason,Bourne,jasonbourne,2,Toyota Camry,Sedan,2010,20688.35,19653.93,2024-04-20,Purchase
-3,Hermione,Granger,hermionegranger,1,Honda Fit,Hatchback,2005,23471.55,22400.00,2024-04-20,Return
+3,Hermione,Granger,hermionegranger,1,Honda Fit,Hatchback,2005,23471.55,22400.0,2024-04-20,Return
+4,Hermione,Granger,hermionegranger,1,Honda Fit,Hatchback,2005,23471.55,22444.67,2024-04-21,Purchase
+5,Hermione,Granger,hermionegranger,1,Honda Fit,Hatchback,2005,23471.55,22444.67,2024-04-21,Return
+6,Hermione,Granger,hermionegranger,100,Toyota Prius,Hatchback,2023,24443.93,23374.5080625,2024-04-21,Purchase
+7,Hermione,Granger,hermionegranger,100,Toyota Prius,Hatchback,2023,24443.93,23374.5080625,2024-04-21,Return
+8,Hermione,Granger,hermionegranger,100,Toyota Prius,Hatchback,2023,24443.93,23374.5080625,2024-04-21,Purchase
+9,Yoda,Smith,yoda,99,Chevrolet Tahoe,SUV,2022,33289.25,35369.828125,2024-04-21,Purchase
+10,Yoda,Smith,yoda,99,Chevrolet Tahoe,SUV,2022,33289.25,35369.828125,2024-04-21,Return
+11,Yoda,Smith,yoda,99,Chevrolet Tahoe,SUV,2022,33289.25,35369.828125,2024-04-21,Purchase

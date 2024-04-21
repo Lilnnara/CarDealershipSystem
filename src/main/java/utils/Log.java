@@ -1,6 +1,7 @@
 package main.java.utils;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import main.java.handlers.*;;
 
 public class Log {
     //attributes
@@ -9,7 +10,8 @@ public class Log {
     private String Username;
 
     /**
-     * Constructor for Log that takes UsernameIn and eventDescriptionIn as parameters and uses the current timre and date value. 
+     * Constructor for Log that takes UsernameIn and eventDescriptionIn as parameters and uses the current time and date value. 
+     * Method also generates an output to file Log.txt when initialized.
      * @param UsernameIn
      * @param eventDescriptionIn
      */
@@ -21,6 +23,7 @@ public class Log {
         timestamp = myDateObj.format(myFormatObj);
         eventDescription = eventDescriptionIn;
         Username = UsernameIn;
+        FileHandler.updateLogFile("resources/Log.txt", toString());
     }
 
     

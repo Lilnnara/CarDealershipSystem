@@ -43,11 +43,24 @@ public class ShopManager {
         
     }
 
+    
+    /** 
+     * Method to check a Admin Login is valid.
+     * @param adminCode
+     * @return boolean
+     */
     public boolean authenticateAdmin(String adminCode) {
         return "1234".equals(adminCode); // This could later check against a more secure method
     }
 
 
+    
+    /** 
+     * Method to check a User Login is valid.
+     * @param username
+     * @param password
+     * @return User
+     */
     public User authenticateUser(String username, String password){
         User user = users.get(username);
         if(user != null && user.getPassword().equals(password)){
@@ -59,7 +72,10 @@ public class ShopManager {
     }
 
 
-    // Admin functionality
+    /** 
+     * Method to add a car.
+     * @return HashMap<Integer, Car>
+     */
     public HashMap<Integer, Car> addCar() {
         HashMap<String, String> carAttributes = new HashMap<>();
 
@@ -115,10 +131,6 @@ public class ShopManager {
         }
     }
 
-
-    
-    
-
     /**
      * Retrieves the revenue for a specific car type by summing up all final prices
      * of purchase-type tickets and subtracting the final prices of return-type tickets.
@@ -157,11 +169,11 @@ public class ShopManager {
         }
         return revenue;
     }
-
     
-    
-    
-
+    /** 
+     * Method to remove a car.
+     * @param carId
+     */
     public void removeCar(int carId) {
         // Remove car from HashMap
         // If needed, write changes to the CSV file
@@ -171,6 +183,11 @@ public class ShopManager {
         logsLinkedList.add(new Log("Admin ","Removed a car."));
     }
 
+    
+    /** 
+     * Method to add a new User.
+     * @return HashMap<String, User>
+     */
     public HashMap<String, User> addNewUser() {
         // Add new user to the HashMap
         // If needed, write changes to the CSV file
@@ -199,27 +216,61 @@ public class ShopManager {
         return users;
     }
 
+    
+    /** 
+     * Uses updateCarsAvailable to update the car values affected by a car purchase or return.
+     * @param car
+     * @param isPurchase
+     * @param amount
+     */
     public void updateStock(Car car, boolean isPurchase, int amount){
-        car.updateCarsAvailable(isPurchase, amount);
+        //! is purchase because updateCarsAvailable uses is increase value
+        car.updateCarsAvailable(!isPurchase, amount);
         FileHandler.updateCarFile("resources/car_data.csv", cars, carHeaderIndexMap); 
     }
 
+    
+    /** 
+     * Uses updateCarsPurchased and updateMoneyAvailable to update the user values affected by a car purchase or return.
+     * @param user
+     * @param isPurchase
+     * @param moneyAmount
+     * @param carAmount
+     */
     public void updateUserData(User user, boolean isPurchase, double moneyAmount, int carAmount){
         user.updateCarsPurchased(isPurchase, carAmount);
-        user.updateMoneyAvailable(isPurchase, moneyAmount);
+        //! is purchase because updateMoneyAvailable uses is increase value
+        user.updateMoneyAvailable(!isPurchase, moneyAmount);
         FileHandler.updateUserFile("resources/user_data.csv", users, userHeaderIndexMap); 
     }
 
+    
+    /** 
+     * Calculates the membership discount of a car.
+     * @param car
+     * @return double
+     */
     public double getMembershipCost(Car car){
         //10% off means cost is 90% of the original aka 0.9
         return 0.9*(car.getPrice());
     }
 
+    
+    /** 
+     * Calculates and returns the cost with Taxes of the given price
+     * @param price
+     * @return double
+     */
     public double getCostAfterTaxes(double price){
         // state taxes are 6.25% so an aditional 0.0625 out of 1 so 1.0625 times price
         return 1.0625 * price;
     }
     
+    
+    /** 
+     * User Interface for purchaseCar.  Validates if a car is within budget and in stock before calling PurchaseCar.
+     * @param user
+     */
     public void purchaseCarUi(User user) {
         System.out.println("Which car would you like to purchase?");
         System.out.println("Please enter a car Id:");
@@ -250,7 +301,7 @@ public class ShopManager {
                 //if car is within budget for the user, ask them if they would like to continue with purchse and if so generate and return ticket.  
                 System.out.println("\t The car you are trying to purchase is in stock and within your budget!");
                 if(user.isMinecarsMembership()){
-                    System.out.println("\t Would you like to purchase for the cost of: " + price + "(The member discout of %15 off the asking price?)");
+                    System.out.println("\t Would you like to purchase for the cost of: " + price + "(The member discout of %10 off the asking price?)");
                 }
                 else{
                     System.out.println("\t Would you like to purchase for the cost of: " + price);
@@ -261,6 +312,9 @@ public class ShopManager {
                     input = scanner.nextInt();
                     if(input == 1){
                         purchaseCar(user, car);
+                    }
+                    else{
+                        System.out.println("Purchase failed.  Please enter a valid response.");
                     }
                 }
             }
@@ -276,7 +330,11 @@ public class ShopManager {
 
     }
 
-    // User functionality
+    /** 
+     * Takes user and car objects and processes a car purchase.
+     * @param user
+     * @param car
+     */
     public void purchaseCar(User user, Car car) {
         double price = 0;
         if(user.isMinecarsMembership()){
@@ -291,26 +349,32 @@ public class ShopManager {
         // Update cars available
         updateStock(car, true, 1);
         // Record transaction
-        Ticket returnTicket = new Ticket(tickets.size(), user.getFirstName(), user.getLastName(), user.getUsername(), car.getId(), car.getModel(), car.getCarType(), car.getYear(), car.getPrice(), price, new Date(), false);
-        tickets.put(tickets.size(), returnTicket);
+        Ticket returnTicket = new Ticket(tickets.size()+1, user.getFirstName(), user.getLastName(), user.getUsername(), car.getId(), car.getModel(), car.getCarType(), car.getYear(), car.getPrice(), price, new Date(), false);
+        tickets.put(tickets.size()+1, returnTicket);
+        FileHandler.updateTicketFile("resources/ticket_data.csv", tickets, ticketHeaderIndexMap); 
         logsLinkedList.add(new Log("User " + user.getUsername() + " ","Purchased a car."));
     }
 
+    
+    /** 
+     * User interface for returnCar.
+     * @param user
+     */
     public void returnCarUi(User user) {    
-        HashMap<Integer, Ticket> userTickets = getUserTransactions(user.getUsername());
-        if(userTickets.size()==0){
+        HashMap<Integer, Ticket> userCars = getUserCars(user.getUsername());
+        if(userCars.size()==0){
             System.out.println("User does not have any Cars to return.");
             return;
         }
         System.out.println("Which car would you like to return?");
-        viewUserTransactions(user.getUsername());
+        viewUserCars(user.getUsername());
         System.out.println("Please enter a ticket Id from the above list:");
 
         Scanner scanner = new Scanner(System.in);
         if(scanner.hasNextInt()){
             int input = scanner.nextInt();
-            if(userTickets.get(input)!= null){
-                returnCar(user, userTickets.get(input));
+            if(userCars.get(input)!= null){
+                returnCar(user, userCars.get(input));
             }
             else{
                 System.out.println("Invalid Ticket ID for return.");
@@ -318,17 +382,22 @@ public class ShopManager {
         }
     }
 
+    /** 
+     * Takes user and ticket objects and processes a car return.
+     * @param user
+     * @param ticket
+     */
     public void returnCar(User user, Ticket ticket) {
         Car car = cars.get(Integer.parseInt(ticket.getCarId()));
-        double price = car.getPrice();
         // Process car return
         // Update user's cars purchased
-        updateUserData(user, false, price, 1);
+        updateUserData(user, false, ticket.getFinalPrice(), 1);
         // Update cars available
         updateStock(car, false, 1);
         // Record transaction
-        Ticket returnTicket = new Ticket(tickets.size(), ticket.getUserFirstName(), ticket.getUserLastName(), ticket.getUsername(), ticket.getCarId(), ticket.getPurchasedCarModel(), ticket.getCarType(), ticket.getCarYear(), ticket.getOriginalPrice(), ticket.getFinalPrice(), new Date(), true);
-        tickets.put(tickets.size(), returnTicket);
+        Ticket returnTicket = new Ticket(tickets.size()+1, ticket.getUserFirstName(), ticket.getUserLastName(), ticket.getUsername(), ticket.getCarId(), ticket.getPurchasedCarModel(), ticket.getCarType(), ticket.getCarYear(), ticket.getOriginalPrice(), ticket.getFinalPrice(), new Date(), true);
+        tickets.put(tickets.size()+1, returnTicket);
+        FileHandler.updateTicketFile("resources/ticket_data.csv", tickets, ticketHeaderIndexMap); 
         logsLinkedList.add(new Log("User " + user.getUsername() + " ","Returned a car."));
     }
 
@@ -391,15 +460,59 @@ public class ShopManager {
         }
         logsLinkedList.add(new Log("User " + username + " ","Viewed transactions."));
     }
-
+   
+    /** 
+     * Retrieves all transactions associated with a specific user.
+     * @param username The username whose transactions are to be retrieved.
+     * @return HashMap<Integer, Ticket>
+     */
     public HashMap<Integer, Ticket> getUserTransactions(String username) {
         HashMap<Integer, Ticket> userTickets = new HashMap<>();
-        for (int i = 0; i < tickets.size(); i++){
-            if (tickets.get(i).getUsername().equals(username)) {
+        for (int i = 0; i <= tickets.size(); i++){
+            if (tickets.get(i) != null && tickets.get(i).getUsername().equals(username)) {
                 userTickets.put(i, tickets.get(i));
             }
         }
         return userTickets;
     }
 
+/**
+     * Retrieves and displays all cars associated with a specific user. (Removes all purchase and return pairs so Cars that have been returned are not included.)
+     *
+     * @param username The username whose cars are to be fetched and displayed.
+     */
+    public void viewUserCars(String username) {
+        HashMap<Integer, Ticket> userCars = getUserCars(username);
+        for (Ticket ticket : userCars.values()) {
+            System.out.println(ticket);
+        }
+    }
+
+    /** 
+     * Retrieves all cars owned by a specific user. (Removes all purchase and return pairs so Cars that have been returned are not included.)
+     * @param username The username whose transactions are to be retrieved.
+     * @return HashMap<Integer, Ticket>
+     */
+    public HashMap<Integer, Ticket> getUserCars(String username) {
+        HashMap<Integer, Ticket> userTickets = getUserTransactions(username);
+        HashMap<Integer, Ticket> userCars = new HashMap<>();
+        //for(Ticket ticket : userTickets.values()){
+        for (Map.Entry<Integer, Ticket> ticket : userTickets.entrySet()) {
+            if(ticket.getValue() != null && ticket.getValue().getTicketStatus().equals("Purchase")){
+                boolean isUserCar = true;
+                for (Map.Entry<Integer, Ticket> possibleReturn : userTickets.entrySet()) {
+                    if(possibleReturn.getValue() != null && possibleReturn.getValue().getCarId().equals(ticket.getValue().getCarId()) && possibleReturn.getValue().getTicketStatus().equals("Return")){
+                        possibleReturn.setValue(null);
+                        ticket.setValue(null);
+                        isUserCar = false;
+                        break; 
+                    }
+                }
+                if(isUserCar){
+                    userCars.put(ticket.getKey(), ticket.getValue());
+                }
+            }
+        }
+        return userCars;
+    }
 }

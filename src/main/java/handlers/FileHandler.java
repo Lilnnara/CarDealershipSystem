@@ -46,7 +46,7 @@ public class FileHandler {
         return headerIndexMap;
     }
 
-        /**
+    /**
      * Creates a HashMap of tickets read from a CSV file, with ticket IDs as keys and Ticket objects as values.
      *
      * @param filename The path to the CSV file containing ticket data. Must inclue resources/____.csv to scan from the correct file
@@ -145,83 +145,133 @@ public class FileHandler {
         return userMap;
     }
 
-    
+    /**
+     * Updates a CSV file with ticket data using the provided filename, ticket map, and headers.
+     *
+     * @param filename The name of the CSV file to be updated. Must inclue resources/____.csv to save to the correct folder
+     * @param ticketMap   A HashMap containing car data, where the keys are integer IDs and the values are Car objects.
+     * @param headers  A LinkedHashMap containing header names and their corresponding indices.
+     *                 This is used to ensure consistent ordering of columns in the CSV file.
+     */
+    public static void updateTicketFile(String filename, HashMap<Integer, Ticket> ticketMap, LinkedHashMap<String, Integer> headers) {
+        try (FileWriter csvWriter = new FileWriter(filename, false)) {
+
+            int size = headers.size();
+            int count = 0;
+
+            // Write headers
+            for (Map.Entry<String, Integer> entry : headers.entrySet()) {
+                csvWriter.append(entry.getKey());
+                if (++count < size) {
+                    csvWriter.append(",");
+                }
+            }
+            csvWriter.append("\n");
+
+            // Write ticket data
+            for (int i = 1; i <= ticketMap.size(); i++) {
+                Ticket ticket = ticketMap.get(i);
+                csvWriter.append(ticket.toCSV());
+                if (i != ticketMap.size()) {
+                    csvWriter.append("\n");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
- * Updates a CSV file with car data using the provided filename, car map, and headers.
- *
- * @param filename The name of the CSV file to be updated. Must inclue resources/____.csv to save to the correct folder
- * @param carMap   A HashMap containing car data, where the keys are integer IDs and the values are Car objects.
- * @param headers  A LinkedHashMap containing header names and their corresponding indices.
- *                 This is used to ensure consistent ordering of columns in the CSV file.
- */
-public static void updateCarFile(String filename, HashMap<Integer, Car> carMap, LinkedHashMap<String, Integer> headers) {
-    try (FileWriter csvWriter = new FileWriter(filename, false)) {
+     * Updates a CSV file with car data using the provided filename, car map, and headers.
+     *
+     * @param filename The name of the CSV file to be updated. Must inclue resources/____.csv to save to the correct folder
+     * @param carMap   A HashMap containing car data, where the keys are integer IDs and the values are Car objects.
+     * @param headers  A LinkedHashMap containing header names and their corresponding indices.
+     *                 This is used to ensure consistent ordering of columns in the CSV file.
+     */
+    public static void updateCarFile(String filename, HashMap<Integer, Car> carMap, LinkedHashMap<String, Integer> headers) {
+        try (FileWriter csvWriter = new FileWriter(filename, false)) {
 
-        int size = headers.size();
-        int count = 0;
+            int size = headers.size();
+            int count = 0;
 
-        // Write headers
-        for (Map.Entry<String, Integer> entry : headers.entrySet()) {
-            csvWriter.append(entry.getKey());
-            if (++count < size) {
-                csvWriter.append(",");
+            // Write headers
+            for (Map.Entry<String, Integer> entry : headers.entrySet()) {
+                csvWriter.append(entry.getKey());
+                if (++count < size) {
+                    csvWriter.append(",");
+                }
             }
-        }
-        csvWriter.append("\n");
+            csvWriter.append("\n");
 
-        // Write car data
-        for (int i = 1; i <= carMap.size(); i++) {
-            Car car = carMap.get(i);
-            csvWriter.append(car.toStringCSV());
-            if (i != carMap.size()) {
-                csvWriter.append("\n");
+            // Write car data
+            for (int i = 1; i <= carMap.size(); i++) {
+                Car car = carMap.get(i);
+                csvWriter.append(car.toStringCSV());
+                if (i != carMap.size()) {
+                    csvWriter.append("\n");
+                }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    } catch (IOException e) {
-        e.printStackTrace();
     }
-}
 
-/**
- * Updates a CSV file with user data using the provided filename, user map, and headers.
- *
- * @param filename The name of the CSV file to be updated. Must inclue resources/____.csv to save to the correct folder
- * @param users  A HashMap containing user data, where the keys are integer IDs and the values are User objects.
- * @param headers  A LinkedHashMap containing header names and their corresponding indices.
- *                 This is used to ensure consistent ordering of columns in the CSV file.
- */
-public static void updateUserFile(String filename, HashMap<String, User> users, LinkedHashMap<String, Integer> headers) {
-    try (FileWriter csvWriter = new FileWriter(filename, false)) {
-        int size = headers.size();
-        int count = 0;
+    /**
+     * Updates a CSV file with user data using the provided filename, user map, and headers.
+     *
+     * @param filename The name of the CSV file to be updated. Must inclue resources/____.csv to save to the correct folder
+     * @param users  A HashMap containing user data, where the keys are integer IDs and the values are User objects.
+     * @param headers  A LinkedHashMap containing header names and their corresponding indices.
+     *                 This is used to ensure consistent ordering of columns in the CSV file.
+     */
+    public static void updateUserFile(String filename, HashMap<String, User> users, LinkedHashMap<String, Integer> headers) {
+        try (FileWriter csvWriter = new FileWriter(filename, false)) {
+            int size = headers.size();
+            int count = 0;
 
-        // Write headers
-        for (Map.Entry<String, Integer> entry : headers.entrySet()) {
-            csvWriter.append(entry.getKey());
-            if (++count < size) {
-                csvWriter.append(",");
+            // Write headers
+            for (Map.Entry<String, Integer> entry : headers.entrySet()) {
+                csvWriter.append(entry.getKey());
+                if (++count < size) {
+                    csvWriter.append(",");
+                }
             }
-        }
-        csvWriter.append("\n");
-        //collect the usernames in a hashmap to have the ID values to print to file in the correct order
-        HashMap<Integer, String> usernameIds = new HashMap<>();
-        for (Map.Entry<String, User> entry : users.entrySet()) {
-            usernameIds.put(entry.getValue().getId(),entry.getKey());
-        }
-
-        // Write user data
-        for (int i = 1; i <= users.size(); i++) {
-            User user = users.get(usernameIds.get(i));
-            csvWriter.append(user.ToStringCSV());
-            if (i != users.size()) {
-                csvWriter.append("\n");
+            csvWriter.append("\n");
+            //collect the usernames in a hashmap to have the ID values to print to file in the correct order
+            HashMap<Integer, String> usernameIds = new HashMap<>();
+            for (Map.Entry<String, User> entry : users.entrySet()) {
+                usernameIds.put(entry.getValue().getId(),entry.getKey());
             }
+
+            // Write user data
+            for (int i = 1; i <= users.size(); i++) {
+                User user = users.get(usernameIds.get(i));
+                csvWriter.append(user.ToStringCSV());
+                if (i != users.size()) {
+                    csvWriter.append("\n");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    } catch (IOException e) {
-        e.printStackTrace();
     }
-}
 
-
+    
+    /** 
+     * Method to add a log input to the end of the log file.
+     * 
+     * @param filename Location of Log file
+     * @param log String value of the Log being added to the file.
+     */
+    public static void updateLogFile(String filename, String log){
+        try{
+            FileWriter logFileWriter = new FileWriter(filename,true);//appends to file
+            logFileWriter.write(log + "\n");
+            logFileWriter.close();
+        }
+        catch(Exception e){
+			e.printStackTrace();
+        }
+    }
 }

@@ -134,6 +134,11 @@ public class User extends Person {
         return "" + id + "," + super.getFirstName() + "," + super.getLastName() + "," + moneyAvailable + "," + carsPurchased + "," + (minecarsMembership ? "True" : "False") + "," + username + "," + password;
     }
 
+    
+    /** 
+     * Method to generate String of User object for printing to CSV files
+     * @return String
+     */
     public String ToStringCSV() {
         return  moneyAvailable +
                 "," + password +

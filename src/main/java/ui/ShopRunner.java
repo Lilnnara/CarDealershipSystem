@@ -5,17 +5,27 @@ import main.java.handlers.ShopManager;
 import main.java.models.Car;
 import main.java.models.User;
 import main.java.models.Ticket;
+import main.java.utils.Log;
 
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.LinkedHashMap;
 
+/**
+ * This class holds the Shop Runner for the project.
+ */
 public class ShopRunner {
     private static ShopManager shopManager;
     private static Scanner scanner = new Scanner(System.in);
 
+    
+    /** 
+     * Main method for whole system.
+     * @param args
+     */
     public static void main(String[] args) {
         try {
+            new Log("","Shop initialized."); // Initial Log value created for the session.
             // File paths for data
             String carFile = "resources/car_data.csv";
             String userFile = "resources/user_data.csv";
@@ -81,6 +91,8 @@ public class ShopRunner {
             e.printStackTrace();
         } finally {
             scanner.close(); // Always close the scanner when done
+            new Log("","Shop closed."); // Final Log value created for the session.
+            FileHandler.updateLogFile("resources/Log.txt", "\n"); // create a new line to divide log file for different sessions
         }
     }
 }

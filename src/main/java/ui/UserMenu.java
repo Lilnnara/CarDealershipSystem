@@ -5,16 +5,29 @@ import main.java.models.User;
 import java.util.Scanner;
 import main.java.utils.Log;
 
+/**
+ * This class represents the user menu for navigating the car dealership system.
+ */
 public class UserMenu implements Menu {
     private ShopManager shopManager;
     private Scanner scanner;
     private User currentUser; 
+
+    /**
+     * Constructs a UserMenu with the specified ShopManager and Scanner.
+     *
+     * @param shopManager the manager handling business logic and data interaction
+     * @param scanner the scanner to read input from the console
+     */
 
     public UserMenu(ShopManager shopManager, Scanner scanner) {
         this.shopManager = shopManager;
         this.scanner = scanner;
     }
 
+    /**
+     * Logs in the user by requesting username and password and authenticating it.
+     */
     @Override
     public void login(){
         System.out.print("Username: ");
@@ -32,6 +45,9 @@ public class UserMenu implements Menu {
         }
     }
 
+    /**
+     * Displays the main menu options to the user.
+     */
     @Override
     public void displayOptions() {
         System.out.println("\n--- User Menu ---");
@@ -43,7 +59,10 @@ public class UserMenu implements Menu {
         System.out.println("0. Go back to main menu");
     }
 
-
+    /**
+     * Handles the user's menu selection.
+     * This method processes input from the user and calls the corresponding methods in ShopManager.
+     */
     @Override
     public void handleSelection() {
     
@@ -89,6 +108,9 @@ public class UserMenu implements Menu {
         } while (!input.equals("0"));
     }
 
+    /**
+     * Method to print and handle options to filter the cars
+     */
     private void filterCarsMenu() {
         String choice;
         do {

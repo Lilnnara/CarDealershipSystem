@@ -204,11 +204,18 @@ public class Ticket {
      */
     public String toCSV() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Date format for CSV
-        return String.format("\"%d\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%d,%.2f,%.2f,\"%s\",\"%s\"",
-                             ticketId, userFirstName, userLastName, username, carId, purchasedCarModel, carType, carYear,
-                             originalPrice, finalPrice, sdf.format(purchaseDate), ticketStatus);
+        return (ticketId + "," + userFirstName + "," + userLastName + "," + username + "," + carId + "," + purchasedCarModel + "," + carType + "," + carYear +  "," + 
+        originalPrice + "," + finalPrice + "," + sdf.format(purchaseDate) + "," + ticketStatus);
+        // return String.format("\"%d\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%d,%.2f,%.2f,\"%s\",\"%s\"",
+        //                      ticketId, userFirstName, userLastName, username, carId, purchasedCarModel, carType, carYear,
+        //                      originalPrice, finalPrice, sdf.format(purchaseDate), ticketStatus);
     }
 
+    
+    /** 
+     * Method to return String value of Ticket Object
+     * @return String
+     */
     @Override
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

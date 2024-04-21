@@ -70,3 +70,76 @@
 13:46:48 12-04-2024 -  Data updated.
 13:46:48 12-04-2024 -  Shop closed.
 
+04:29:06 21-04-2024 -  Shop initialized.
+04:29:43 21-04-2024 - Admin  Logged in.
+04:29:56 21-04-2024 - Admin  got revenue by ID.
+04:30:05 21-04-2024 - Admin  Logged out.
+04:30:27 21-04-2024 - User hermionegranger  Logged in.
+04:30:46 21-04-2024 - User hermionegranger  Viewed transactions.
+04:31:04 21-04-2024 - User hermionegranger  Purchased a car.
+04:31:19 21-04-2024 - User hermionegranger  Returned a car.
+04:31:33 21-04-2024 - User hermionegranger  Viewed transactions.
+04:31:52 21-04-2024 - User hermionegranger  Purchased a car.
+04:32:22 21-04-2024 - User hermionegranger  Viewed transactions.
+04:32:44 21-04-2024 - User hermionegranger  Browsed Cars.
+04:32:50 21-04-2024 - User hermionegranger  Filtered Cars.
+04:33:18 21-04-2024 - User hermionegranger  Logged out.
+04:33:23 21-04-2024 -  Shop closed.
+
+
+04:35:47 21-04-2024 -  Shop initialized.
+04:41:14 21-04-2024 - User hermionegranger  Logged in.
+04:41:17 21-04-2024 - User hermionegranger  Viewed transactions.
+04:41:24 21-04-2024 - User hermionegranger  Logged out.
+04:41:25 21-04-2024 -  Shop closed.
+
+
+04:42:16 21-04-2024 -  Shop initialized.
+04:42:30 21-04-2024 - User hermionegranger  Logged in.
+04:42:34 21-04-2024 - User hermionegranger  Viewed transactions.
+04:42:51 21-04-2024 - User hermionegranger  Logged out.
+04:43:01 21-04-2024 - Admin  Logged in.
+04:43:14 21-04-2024 - Admin  got revenue by Car Type.
+04:43:18 21-04-2024 - Admin  Logged out.
+04:43:20 21-04-2024 -  Shop closed.
+
+
+04:43:57 21-04-2024 -  Shop initialized.
+04:44:26 21-04-2024 - User yoda  Logged in.
+04:44:33 21-04-2024 - User yoda  Filtered Cars.
+04:44:58 21-04-2024 - User yoda  Purchased a car.
+04:48:15 21-04-2024 - User yoda  Logged out.
+04:48:17 21-04-2024 -  Shop closed.
+
+
+04:48:29 21-04-2024 -  Shop initialized.
+04:49:03 21-04-2024 - User yoda  Logged in.
+04:49:05 21-04-2024 - User yoda  Viewed transactions.
+04:49:34 21-04-2024 - User yoda  Returned a car.
+04:57:15 21-04-2024 - User yoda  Logged out.
+04:57:17 21-04-2024 -  Shop closed.
+
+
+04:57:36 21-04-2024 -  Shop initialized.
+04:58:05 21-04-2024 - User hermionegranger  Logged in.
+04:58:12 21-04-2024 - User hermionegranger  Viewed transactions.
+04:58:25 21-04-2024 - User hermionegranger  Purchased a car.
+04:58:43 21-04-2024 - User hermionegranger  Returned a car.
+04:59:16 21-04-2024 - User hermionegranger  Viewed transactions.
+04:59:19 21-04-2024 - User hermionegranger  Filtered Cars.
+04:59:34 21-04-2024 - User hermionegranger  Purchased a car.
+04:59:38 21-04-2024 - User hermionegranger  Logged out.
+05:00:21 21-04-2024 - User yoda  Logged in.
+05:00:32 21-04-2024 - User yoda  Filtered Cars.
+05:00:51 21-04-2024 - User yoda  Purchased a car.
+05:01:48 21-04-2024 - User yoda  Returned a car.
+05:02:28 21-04-2024 - User yoda  Purchased a car.
+05:02:32 21-04-2024 - User yoda  Viewed transactions.
+05:02:40 21-04-2024 - User yoda  Logged out.
+05:02:43 21-04-2024 - Admin  Logged in.
+05:02:54 21-04-2024 - Admin  got revenue by ID.
+05:03:23 21-04-2024 - Admin  got revenue by ID.
+05:03:43 21-04-2024 - Admin  Logged out.
+05:03:45 21-04-2024 -  Shop closed.
+
+
