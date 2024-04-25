@@ -196,7 +196,7 @@ public class Car {
                 "," + vin +
                 "," + fuelType +
                 "," + model +
-                "," + (hasTurbo?"Yes":"No");
+                "," + hasTurbo;
     }
     /**
      * Updates the carsAvailable.  Adds the "amount" value if isIncrease is True, 
