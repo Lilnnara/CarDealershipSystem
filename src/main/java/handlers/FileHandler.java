@@ -191,31 +191,29 @@ public class FileHandler {
      */
     public static void updateCarFile(String filename, HashMap<Integer, Car> carMap, LinkedHashMap<String, Integer> headers) {
         try (FileWriter csvWriter = new FileWriter(filename, false)) {
-
             int size = headers.size();
             int count = 0;
-
+    
             // Write headers
-            for (Map.Entry<String, Integer> entry : headers.entrySet()) {
-                csvWriter.append(entry.getKey());
+            for (Map.Entry<String, Integer> header : headers.entrySet()) {
+                csvWriter.append(header.getKey());
                 if (++count < size) {
                     csvWriter.append(",");
                 }
             }
             csvWriter.append("\n");
-
+    
             // Write car data
-            for (int i = 1; i <= carMap.size(); i++) {
-                Car car = carMap.get(i);
+            for (Map.Entry<Integer, Car> entry : carMap.entrySet()) {
+                Car car = entry.getValue();
                 csvWriter.append(car.toStringCSV());
-                if (i != carMap.size()) {
-                    csvWriter.append("\n");
-                }
+                csvWriter.append("\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    
 
     /**
      * Updates a CSV file with user data using the provided filename, user map, and headers.
@@ -229,33 +227,27 @@ public class FileHandler {
         try (FileWriter csvWriter = new FileWriter(filename, false)) {
             int size = headers.size();
             int count = 0;
-
+    
             // Write headers
-            for (Map.Entry<String, Integer> entry : headers.entrySet()) {
-                csvWriter.append(entry.getKey());
+            for (Map.Entry<String, Integer> header : headers.entrySet()) {
+                csvWriter.append(header.getKey());
                 if (++count < size) {
                     csvWriter.append(",");
                 }
             }
             csvWriter.append("\n");
-            //collect the usernames in a hashmap to have the ID values to print to file in the correct order
-            HashMap<Integer, String> usernameIds = new HashMap<>();
-            for (Map.Entry<String, User> entry : users.entrySet()) {
-                usernameIds.put(entry.getValue().getId(),entry.getKey());
-            }
-
+    
             // Write user data
-            for (int i = 1; i <= users.size(); i++) {
-                User user = users.get(usernameIds.get(i));
+            for (Map.Entry<String, User> entry : users.entrySet()) {
+                User user = entry.getValue();
                 csvWriter.append(user.ToStringCSV());
-                if (i != users.size()) {
-                    csvWriter.append("\n");
-                }
+                csvWriter.append("\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    
 
     
     /** 
