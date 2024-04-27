@@ -28,7 +28,7 @@ public class AdminMenu implements Menu {
      */
     @Override
     public void login() {
-        System.out.print("Hello Admin.\nPlease enter Admin code: ");
+        System.out.print("\nPlease enter Admin code: ");
         String code = scanner.nextLine();
         if (shopManager.authenticateAdmin(code)) {
             shopManager.logsLinkedList.add(new Log("Admin ","Logged in."));

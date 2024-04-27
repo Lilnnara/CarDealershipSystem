@@ -3,7 +3,10 @@ package main.java.handlers;
 import java.util.Scanner;
 import main.java.models.Car;
 import main.java.models.User;
+import main.java.ui.CarAdditionMenu;
 import main.java.models.Ticket;
+
+import java.util.Collections;
 import java.util.Date;
 import main.java.utils.Log;
 
@@ -28,20 +31,26 @@ public class ShopManager {
     private CarFactory carFactory = new CarFactory();
     private UserFactory userFactory = new UserFactory();
     private TicketFactory ticketFactory = new TicketFactory();
+    private int lastUsedId = 100;
     
 
     public ShopManager(HashMap<Integer, Car> cars, HashMap<String, User> users, HashMap<Integer, Ticket> tickets,
-                       LinkedHashMap<String, Integer> carHeaderIndexMap,
-                       LinkedHashMap<String, Integer> userHeaderIndexMap,
-                       LinkedHashMap<String, Integer> ticketHeaderIndexMap) {
+            LinkedHashMap<String, Integer> carHeaderIndexMap,
+            LinkedHashMap<String, Integer> userHeaderIndexMap,
+            LinkedHashMap<String, Integer> ticketHeaderIndexMap) {
         this.cars = cars;
         this.users = users;
         this.tickets = tickets;
         this.carHeaderIndexMap = carHeaderIndexMap;
         this.userHeaderIndexMap = userHeaderIndexMap;
         this.ticketHeaderIndexMap = ticketHeaderIndexMap;
-        
+
+        this.lastUsedId = initializeLastUsedId();
     }
+
+    private int initializeLastUsedId() {
+    return cars.isEmpty() ? 100 : Collections.max(cars.keySet());
+}
 
     
     /** 
@@ -76,28 +85,48 @@ public class ShopManager {
      * Method to add a car.
      * @return HashMap<Integer, Car>
      */
-    public HashMap<Integer, Car> addCar() {
-        HashMap<String, String> carAttributes = new HashMap<>();
-
-        Scanner scanner = new Scanner(System.in);
-        // get admin input
-        System.out.println("Hello! to add a car we will need the following information: \n ");
-
-        for (Map.Entry<String, Integer> entry : carHeaderIndexMap.entrySet()) {
-            System.out.println("Enter " + entry.getKey() + ":");
-            String userInput = scanner.nextLine();
-            carAttributes.put(entry.getKey(), userInput);
-        }
-
-        // call factory to create car object
+    public void addCar() {
+        CarAdditionMenu carAdditionMenu = new CarAdditionMenu();
+        HashMap<String, String> carAttributes = carAdditionMenu.collectCarAttributes();
+    
+        // Calculate the next ID
+        int nextId = lastUsedId + 1;
+        carAttributes.put("ID", String.valueOf(nextId)); // Add the ID to the car attributes HashMap
+    
+        // Call factory to create car object
         Car newCar = carFactory.create(carAttributes);
-
-        cars.put(Integer.parseInt(newCar.getId()), newCar);
-        System.out.println("Car added sucessfully!");
-        FileHandler.updateCarFile("resources/car_data.csv", cars, carHeaderIndexMap); 
-        logsLinkedList.add(new Log("Admin ","Added a car.")); 
-        return cars;
+        cars.put(nextId, newCar); // Use nextId as the key for the HashMap of cars
+        lastUsedId = nextId; // Update last used ID
+    
+        System.out.println("Car added successfully with ID: " + nextId);
+    
+        // Update car file and logs
+        FileHandler.updateCarFile("resources/car_data.csv", cars, carHeaderIndexMap);
+        logsLinkedList.add(new Log("Admin", "Added a car with ID: " + nextId));
     }
+    
+    // public HashMap<Integer, Car> addCar() {
+    //     HashMap<String, String> carAttributes = new HashMap<>();
+
+    //     Scanner scanner = new Scanner(System.in);
+    //     // get admin input
+    //     System.out.println("Hello! to add a car we will need the following information: \n ");
+
+    //     for (Map.Entry<String, Integer> entry : carHeaderIndexMap.entrySet()) {
+    //         System.out.println("Enter " + entry.getKey() + ":");
+    //         String userInput = scanner.nextLine();
+    //         carAttributes.put(entry.getKey(), userInput);
+    //     }
+
+    //     // call factory to create car object
+    //     Car newCar = carFactory.create(carAttributes);
+
+    //     cars.put(Integer.parseInt(newCar.getId()), newCar);
+    //     System.out.println("Car added sucessfully!");
+    //     FileHandler.updateCarFile("resources/car_data.csv", cars, carHeaderIndexMap); 
+    //     logsLinkedList.add(new Log("Admin ","Added a car.")); 
+    //     return cars;
+    // }
 
     /**
      * Retrieves the revenue for a specific car ID by summing up all final prices
