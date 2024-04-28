@@ -6,6 +6,9 @@ import java.util.Scanner;
 public class CarAdditionMenu {
     private Scanner scanner = new Scanner(System.in);
 
+
+
+    // For general inputs (including color, VIN, and model) to ensure non-empty
     public HashMap<String, String> collectCarAttributes() {
         HashMap<String, String> carAttributes = new HashMap<>();
 
@@ -14,32 +17,25 @@ public class CarAdditionMenu {
         carAttributes.put("Condition", chooseCondition());
         carAttributes.put("Transmission", chooseTransmission());
         carAttributes.put("Fuel Type", chooseFuelType());
-        carAttributes.put("hasTurbo", chooseHasTurbo());  // Using menu for hasTurbo
+        carAttributes.put("hasTurbo", chooseHasTurbo());
 
-        // Direct input attributes
-        System.out.print("\nEnter Capacity: ");
-        carAttributes.put("Capacity", scanner.nextLine().trim());
+        // Direct input attributes with numeric validation
+        carAttributes.put("Capacity", getNumericInput("\nEnter Capacity: "));
+        carAttributes.put("Cars Available", getNumericInput("\nEnter Cars Available: "));
+        carAttributes.put("Year", getNumericInput("\nEnter Year: "));
+        carAttributes.put("Price", getNumericInput("\nEnter Price: "));
 
-        System.out.print("\nEnter Cars Available: ");
-        carAttributes.put("Cars Available", scanner.nextLine().trim());
-
-        System.out.print("\nEnter Color: ");
-        carAttributes.put("Color", scanner.nextLine().trim());
-
-        System.out.print("\nEnter Year: ");
-        carAttributes.put("Year", scanner.nextLine().trim());
-
-        System.out.print("\nEnter Price: ");
-        carAttributes.put("Price", scanner.nextLine().trim());
-
-        System.out.print("\nEnter VIN: ");
-        carAttributes.put("VIN", scanner.nextLine().trim());
-
-        System.out.print("\nEnter Model: ");
-        carAttributes.put("Model", scanner.nextLine().trim());
+        // Direct input attributes with non-empty validation
+        carAttributes.put("Color", getRequiredInput("\nEnter Color: "));
+        carAttributes.put("VIN", getRequiredInput("\nEnter VIN: "));
+        carAttributes.put("Model", getRequiredInput("\nEnter Model: "));
 
         return carAttributes;
     }
+
+
+    
+    
 
     private String chooseCarType() {
         System.out.println("\nChoose a Car Type:");
@@ -74,10 +70,37 @@ public class CarAdditionMenu {
         String input = scanner.nextLine();
         try {
             int choice = Integer.parseInt(input) - 1;
-            return options[Math.max(0, Math.min(choice, options.length - 1))];
+            if (choice >= 0 && choice < options.length) {
+                return options[choice];
+            } else {
+                System.out.println("\nInvalid input. Please enter a number between 1 and " + options.length + ".");
+            }
         } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please enter a valid number.");
-            return getUserChoice(options); // Recursively call itself to get a valid input
+            System.out.println("\nInvalid input. Please enter a valid number.");
         }
+        return getUserChoice(options); // Recursively call itself to get a valid input
     }
+    private String getNumericInput(String prompt) {
+        System.out.print(prompt);
+        String input = scanner.nextLine().trim();
+        while (!input.matches("\\d+")) {  // Regular expression to check if input is numeric
+            System.out.println("Invalid input. Please enter a valid number.");
+            System.out.print(prompt);
+            input = scanner.nextLine().trim();
+        }
+        return input;
+    }
+    private String getRequiredInput(String prompt) {
+        System.out.print(prompt);
+        String input = scanner.nextLine().trim();
+        while (input.isEmpty()) {
+            System.out.println("Input cannot be empty. Please enter a valid value.");
+            System.out.print(prompt);
+            input = scanner.nextLine().trim();
+        }
+        return input;
+    }
+    
+    
+    
 }

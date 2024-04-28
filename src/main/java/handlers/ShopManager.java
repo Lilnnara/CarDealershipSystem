@@ -98,35 +98,15 @@ public class ShopManager {
         cars.put(nextId, newCar); // Use nextId as the key for the HashMap of cars
         lastUsedId = nextId; // Update last used ID
     
-        System.out.println("Car added successfully with ID: " + nextId);
+        System.out.println("\nCar added successfully.");
+        System.out.println("-----------------------------------------");
+        System.out.println(newCar);
     
         // Update car file and logs
         FileHandler.updateCarFile("resources/car_data.csv", cars, carHeaderIndexMap);
         logsLinkedList.add(new Log("Admin", "Added a car with ID: " + nextId));
     }
     
-    // public HashMap<Integer, Car> addCar() {
-    //     HashMap<String, String> carAttributes = new HashMap<>();
-
-    //     Scanner scanner = new Scanner(System.in);
-    //     // get admin input
-    //     System.out.println("Hello! to add a car we will need the following information: \n ");
-
-    //     for (Map.Entry<String, Integer> entry : carHeaderIndexMap.entrySet()) {
-    //         System.out.println("Enter " + entry.getKey() + ":");
-    //         String userInput = scanner.nextLine();
-    //         carAttributes.put(entry.getKey(), userInput);
-    //     }
-
-    //     // call factory to create car object
-    //     Car newCar = carFactory.create(carAttributes);
-
-    //     cars.put(Integer.parseInt(newCar.getId()), newCar);
-    //     System.out.println("Car added sucessfully!");
-    //     FileHandler.updateCarFile("resources/car_data.csv", cars, carHeaderIndexMap); 
-    //     logsLinkedList.add(new Log("Admin ","Added a car.")); 
-    //     return cars;
-    // }
 
     /**
      * Retrieves the revenue for a specific car ID by summing up all final prices
