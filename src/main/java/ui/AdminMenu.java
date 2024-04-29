@@ -73,14 +73,10 @@ public class AdminMenu implements Menu {
                     shopManager.removeCar(id);
                     break;
                 case "3":
-                    System.out.print("Enter the car ID to retrieve revenue: ");
-                    String carId = scanner.nextLine();
-                    shopManager.getRevenueById(carId);
+                    shopManager.getRevenueById();
                     break;
                 case "4":
-                    System.out.print("Enter the car type to retrieve revenue: ");
-                    String carType = scanner.nextLine();
-                    shopManager.getRevenueByCarType(carType);
+                    shopManager.getRevenueByCarType();
                     break;
                 case "5":
                     shopManager.addNewUser();
