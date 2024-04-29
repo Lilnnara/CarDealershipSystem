@@ -113,44 +113,44 @@ public class ShopManager {
      */
     public double getRevenueById() {
         logsLinkedList.add(new Log("Admin ", "got revenue by ID."));
-    double revenue = 0.0;
-    boolean typeFound = false; // Flag to check if any relevant tickets are found
-    Scanner scanner = new Scanner(System.in);
+        double revenue = 0.0;
+        boolean typeFound = false; // Flag to check if any relevant tickets are found
+        Scanner scanner = new Scanner(System.in);
 
-    String carId;
-    while (true) {
-        System.out.print("Enter the car ID to retrieve revenue: ");
-        carId = scanner.nextLine();
-        try {
-            int id = Integer.parseInt(carId);
-            if (id >= 0) {
-                break; // Valid input, exit the loop
-            } else {
-                System.out.println("Car ID must be a non-negative integer. Please try again");
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input! Please try again and enter a valid car ID.");
-        }
-    }
-
-    for (Ticket ticket : tickets.values()) {
-        if (carId.equals(ticket.getCarId())) { // Check if car IDs match
-            typeFound = true; // Set flag to true indicating that at least one ticket is processed
-            if ("Purchase".equals(ticket.getTicketStatus())) {
-                revenue += ticket.getFinalPrice(); // Add to revenue for purchase type
-            } else if ("Return".equals(ticket.getTicketStatus())) {
-                revenue -= ticket.getFinalPrice(); // Subtract from revenue for return type
+        String carId;
+        while (true) {
+            System.out.print("Enter the car ID to retrieve revenue: ");
+            carId = scanner.nextLine();
+            try {
+                int id = Integer.parseInt(carId);
+                if (id >= 0) {
+                    break; // Valid input, exit the loop
+                } else {
+                    System.out.println("Car ID must be a non-negative integer. Please try again");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! Please try again and enter a valid car ID.");
             }
         }
-    }
 
-    if (typeFound) {
-        System.out.println("\nTotal Revenue for Car ID " + carId + ": $" + revenue);
-        return revenue;
-    } else {
-        System.out.println("\nNo transactions found for Car ID " + carId);
-        return -1.0; // Return -1.0 to indicate no transactions were found
-    }
+        for (Ticket ticket : tickets.values()) {
+            if (carId.equals(ticket.getCarId())) { // Check if car IDs match
+                typeFound = true; // Set flag to true indicating that at least one ticket is processed
+                if ("Purchase".equals(ticket.getTicketStatus())) {
+                    revenue += ticket.getFinalPrice(); // Add to revenue for purchase type
+                } else if ("Return".equals(ticket.getTicketStatus())) {
+                    revenue -= ticket.getFinalPrice(); // Subtract from revenue for return type
+                }
+            }
+        }
+
+        if (typeFound) {
+            System.out.println("\nTotal Revenue for Car ID " + carId + ": $" + revenue);
+            return revenue;
+        } else {
+            System.out.println("\nNo transactions found for Car ID " + carId);
+            return -1.0; // Return -1.0 to indicate no transactions were found
+        }
     }
 
     /**
@@ -158,14 +158,54 @@ public class ShopManager {
      * of purchase-type tickets and subtracting the final prices of return-type
      * tickets.
      *
-     * @param carType The type of the car for which revenue is calculated.
      * @return The total revenue for the car type if found, or -1.0 if no
      *         transactions were found.
      */
-    public double getRevenueByCarType(String carType) {
+    public double getRevenueByCarType() {
         logsLinkedList.add(new Log("Admin ", "got revenue by Car Type."));
         double revenue = 0.0;
         boolean typeFound = false;
+        Scanner scanner = new Scanner(System.in);
+        int carTypeChoice;
+        String carType;
+
+        System.out.println("\n--- Select Car Type ---");
+        System.out.println("1. Hatchback");
+        System.out.println("2. Sedan");
+        System.out.println("3. SUV");
+        System.out.println("4. Pickup");
+
+        while (true) {
+            System.out.print("Enter the number corresponding to the car type: ");
+            if (scanner.hasNextInt()) {
+                carTypeChoice = scanner.nextInt();
+                if (carTypeChoice >= 1 && carTypeChoice <= 4) {
+                    break; // Valid input, exit the loop
+                } else {
+                    System.out.println("Invalid choice! Please select a valid car Type. \n");
+                }
+            } else {
+                System.out.println("Invalid input! Please enter a number and try again. \n");
+                scanner.next(); // Consume invalid input
+            }
+        }
+
+        switch (carTypeChoice) {
+            case 1:
+                carType = "Hatchback";
+                break;
+            case 2:
+                carType = "Sedan";
+                break;
+            case 3:
+                carType = "SUV";
+                break;
+            case 4:
+                carType = "Pickup";
+                break;
+            default:
+                carType = ""; // Just for initialization, shouldn't reach here
+        }
 
         // Loop through each car to find those that match the specified car type
         for (Car car : cars.values()) {
@@ -185,12 +225,8 @@ public class ShopManager {
         }
 
         // Outputting results based on whether any cars of the specified type were found
-        if (!typeFound) {
-            System.out.println("\nNo cars found for the car type: '" + carType + "'.");
-            return -1.0; // Indicate that no transactions were found
-        } else {
-            System.out.println("\nTotal Revenue for Car Type '" + carType + "': $" + revenue);
-        }
+
+        System.out.println("\nTotal Revenue for Car Type '" + carType + "': $" + revenue);
         return revenue;
     }
 

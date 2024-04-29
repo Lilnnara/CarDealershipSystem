@@ -76,9 +76,7 @@ public class AdminMenu implements Menu {
                     shopManager.getRevenueById();
                     break;
                 case "4":
-                    System.out.print("Enter the car type to retrieve revenue: ");
-                    String carType = scanner.nextLine();
-                    shopManager.getRevenueByCarType(carType);
+                    shopManager.getRevenueByCarType();
                     break;
                 case "5":
                     shopManager.addNewUser();
