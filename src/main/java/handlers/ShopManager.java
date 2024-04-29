@@ -181,7 +181,7 @@ public HashMap<Integer, Car> removeCar(String input) {
         int carId = Integer.parseInt(input);
         // Check if the car with the specified ID exists
         if (!cars.containsKey(carId)) {
-            System.out.println("Car with ID " + carId + " does not exist.");
+            System.out.println("Car with ID " + carId + " does not exist. Please try again.");
             return cars; // Return the unchanged inventory
         }
         // Remove car from HashMap
@@ -194,7 +194,7 @@ public HashMap<Integer, Car> removeCar(String input) {
         // Return the updated inventory
         return cars;
     } catch (NumberFormatException e) {
-        System.out.println("Invalid input. Please enter a valid integer.");
+        System.out.println("Invalid input. Please enter a valid integer. Please try Again.");
         return cars; // Return the unchanged inventory
     }
 }
