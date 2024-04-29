@@ -54,105 +54,213 @@ public class Car {
     }
 
 
-    // Getters and setters
-    public int getCapacity() {
-        return capacity;
-    }
+    /**
+ * Returns the capacity of the car.
+ * @return The capacity of the car.
+ */
+public int getCapacity() {
+    return capacity;
+}
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
+/**
+ * Sets the capacity of the car.
+ * @param capacity The capacity of the car to set.
+ */
+public void setCapacity(int capacity) {
+    this.capacity = capacity;
+}
 
-    public String getCarType() {
-        return carType;
-    }
+/**
+ * Returns the type of the car.
+ * @return The type of the car.
+ */
+public String getCarType() {
+    return carType;
+}
 
-    public void setCarType(String carType) {
-        this.carType = carType;
-    }
+/**
+ * Sets the type of the car.
+ * @param carType The type of the car to set.
+ */
+public void setCarType(String carType) {
+    this.carType = carType;
+}
 
-    public int getCarsAvailable() {
-        return carsAvailable;
-    }
+/**
+ * Returns the number of available cars.
+ * @return The number of available cars.
+ */
+public int getCarsAvailable() {
+    return carsAvailable;
+}
 
-    public void setCarsAvailable(int carsAvailable) {
-        this.carsAvailable = carsAvailable;
-    }
+/**
+ * Sets the number of available cars.
+ * @param carsAvailable The number of available cars to set.
+ */
+public void setCarsAvailable(int carsAvailable) {
+    this.carsAvailable = carsAvailable;
+}
 
-    public String getCondition() {
-        return condition;
-    }
+/**
+ * Returns the condition of the car.
+ * @return The condition of the car.
+ */
+public String getCondition() {
+    return condition;
+}
 
-    public void setCondition(String condition) {
-        this.condition = condition;
-    }
+/**
+ * Sets the condition of the car.
+ * @param condition The condition of the car to set.
+ */
+public void setCondition(String condition) {
+    this.condition = condition;
+}
 
-    public String getColor() {
-        return color;
-    }
+/**
+ * Returns the color of the car.
+ * @return The color of the car.
+ */
+public String getColor() {
+    return color;
+}
 
-    public void setColor(String color) {
-        this.color = color;
-    }
+/**
+ * Sets the color of the car.
+ * @param color The color of the car to set.
+ */
+public void setColor(String color) {
+    this.color = color;
+}
 
-    public String getId() {
-        return id;
-    }
+/**
+ * Returns the ID of the car.
+ * @return The ID of the car.
+ */
+public String getId() {
+    return id;
+}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+/**
+ * Sets the ID of the car.
+ * @param id The ID of the car to set.
+ */
+public void setId(String id) {
+    this.id = id;
+}
 
-    public int getYear() {
-        return year;
-    }
+/**
+ * Returns the year of the car.
+ * @return The year of the car.
+ */
+public int getYear() {
+    return year;
+}
 
-    public void setYear(int year) {
-        this.year = year;
-    }
+/**
+ * Sets the year of the car.
+ * @param year The year of the car to set.
+ */
+public void setYear(int year) {
+    this.year = year;
+}
 
-    public double getPrice() {
-        return price;
-    }
+/**
+ * Returns the price of the car.
+ * @return The price of the car.
+ */
+public double getPrice() {
+    return price;
+}
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+/**
+ * Sets the price of the car.
+ * @param price The price of the car to set.
+ */
+public void setPrice(double price) {
+    this.price = price;
+}
 
-    public String getTransmission() {
-        return transmission;
-    }
+/**
+ * Returns the transmission type of the car.
+ * @return The transmission type of the car.
+ */
+public String getTransmission() {
+    return transmission;
+}
 
-    public void setTransmission(String transmission) {
-        this.transmission = transmission;
-    }
+/**
+ * Sets the transmission type of the car.
+ * @param transmission The transmission type of the car to set.
+ */
+public void setTransmission(String transmission) {
+    this.transmission = transmission;
+}
 
-    public String getVin() {
-        return vin;
-    }
+/**
+ * Returns the VIN (Vehicle Identification Number) of the car.
+ * @return The VIN of the car.
+ */
+public String getVin() {
+    return vin;
+}
 
-    public void setVin(String vin) {
-        this.vin = vin;
-    }
+/**
+ * Sets the VIN (Vehicle Identification Number) of the car.
+ * @param vin The VIN of the car to set.
+ */
+public void setVin(String vin) {
+    this.vin = vin;
+}
 
-    public String getFuelType() {
-        return fuelType;
-    }
+/**
+ * Returns the fuel type of the car.
+ * @return The fuel type of the car.
+ */
+public String getFuelType() {
+    return fuelType;
+}
 
-    public void setFuelType(String fuelType) {
-        this.fuelType = fuelType;
-    }
+/**
+ * Sets the fuel type of the car.
+ * @param fuelType The fuel type of the car to set.
+ */
+public void setFuelType(String fuelType) {
+    this.fuelType = fuelType;
+}
 
-    public String getModel() {
-        return model;
-    }
+/**
+ * Returns the model of the car.
+ * @return The model of the car.
+ */
+public String getModel() {
+    return model;
+}
 
-    public void setModel(String model) {
-        this.model = model;
-    }
+/**
+ * Sets the model of the car.
+ * @param model The model of the car to set.
+ */
+public void setModel(String model) {
+    this.model = model;
+}
 
-    public boolean getHasTurbo() { return hasTurbo; }
-    public void setHasTurbo(boolean hasTurbo) { this.hasTurbo = hasTurbo; }
+/**
+ * Returns whether the car has a turbocharger.
+ * @return True if the car has a turbocharger, otherwise false.
+ */
+public boolean getHasTurbo() {
+    return hasTurbo;
+}
+
+/**
+ * Sets whether the car has a turbocharger.
+ * @param hasTurbo True if the car has a turbocharger, otherwise false.
+ */
+public void setHasTurbo(boolean hasTurbo) {
+    this.hasTurbo = hasTurbo;
+}
 
 
     

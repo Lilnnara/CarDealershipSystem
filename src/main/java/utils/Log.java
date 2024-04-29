@@ -77,7 +77,7 @@ public class Log {
 
     /** 
      * This method generates a String value of all the concatenated attributes of the Log file.
-     * @return String value of all Log attributes
+     * @return String value of all Log attributes.
      */
     public String toString(){
         return timestamp+" - "+Username+" "+eventDescription;

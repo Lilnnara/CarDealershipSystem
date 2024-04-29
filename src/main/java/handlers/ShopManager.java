@@ -32,6 +32,19 @@ public class ShopManager {
     private TicketFactory ticketFactory = new TicketFactory();
     private int lastUsedId = 100;
 
+    /**
+     * Constructs a new ShopManager with the specified initial data.
+     * 
+     * @param cars                 A map of car IDs to Car objects.
+     * @param users                A map of usernames to User objects.
+     * @param tickets              A map of ticket IDs to Ticket objects.
+     * @param carHeaderIndexMap    A map of car header names to their corresponding
+     *                             index.
+     * @param userHeaderIndexMap   A map of user header names to their corresponding
+     *                             index.
+     * @param ticketHeaderIndexMap A map of ticket header names to their
+     *                             corresponding index.
+     */
     public ShopManager(HashMap<Integer, Car> cars, HashMap<String, User> users, HashMap<Integer, Ticket> tickets,
             LinkedHashMap<String, Integer> carHeaderIndexMap,
             LinkedHashMap<String, Integer> userHeaderIndexMap,
@@ -46,6 +59,13 @@ public class ShopManager {
         this.lastUsedId = initializeLastUsedId();
     }
 
+    /**
+     * Initializes the last used ID based on the existing car IDs.
+     * If there are no cars, initializes it to 100.
+     * Otherwise, sets it to the maximum ID found in the existing car IDs.
+     * 
+     * @return The initialized last used ID.
+     */
     private int initializeLastUsedId() {
         return cars.isEmpty() ? 100 : Collections.max(cars.keySet());
     }
