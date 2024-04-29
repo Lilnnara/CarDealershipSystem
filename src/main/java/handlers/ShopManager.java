@@ -179,18 +179,35 @@ public class ShopManager {
         return revenue;
     }
     
-    /** 
-     * Method to remove a car.
-     * @param carId
-     */
-    public void removeCar(int carId) {
+    /**
+ * Removes a car from the inventory based on the provided car ID.
+ *
+ * @param carId the unique identifier of the car to be remove2d.
+ * @return a HashMap representing the updated inventory after the removal operation.
+ */
+public HashMap<Integer, Car> removeCar(String input) {
+    try {
+        int carId = Integer.parseInt(input);
+        // Check if the car with the specified ID exists
+        if (!cars.containsKey(carId)) {
+            System.out.println("Car with ID " + carId + " does not exist. Please try again.");
+            return cars; // Return the unchanged inventory
+        }
         // Remove car from HashMap
-        // If needed, write changes to the CSV file
         cars.remove(carId);
-        System.out.println("car with ID: "+ carId + " removed sucessfully");
-        FileHandler.updateCarFile("resources/car_data.csv", cars, carHeaderIndexMap); 
-        logsLinkedList.add(new Log("Admin ","Removed a car."));
+        System.out.println("Car with ID " + carId + " was successfully removed.");
+
+        // Add a log entry for the removal operation
+        logsLinkedList.add(new Log("Admin", "Removed a car with ID: " + carId));
+
+        // Return the updated inventory
+        return cars;
+    } catch (NumberFormatException e) {
+        System.out.println("Invalid input. Please enter a valid integer. Please try Again.");
+        return cars; // Return the unchanged inventory
     }
+}
+
 
     
     /** 
