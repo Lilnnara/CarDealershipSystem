@@ -69,7 +69,7 @@ public class AdminMenu implements Menu {
                     break;
                 case "2":
                     System.out.print("To delete a car, please enter the car ID: ");
-                    int id = Integer.parseInt(scanner.nextLine());
+                    String id = scanner.nextLine();
                     shopManager.removeCar(id);
                     break;
                 case "3":
