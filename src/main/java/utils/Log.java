@@ -3,6 +3,11 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import main.java.handlers.*;;
 
+/**
+ * The Log class represents a log entry containing information about an event, its timestamp, and the associated username.
+ * Each log entry is constructed with a username, event description, and automatically generated timestamp.
+ * Log entries are also written to a file named "Log.txt" upon creation.
+ */
 public class Log {
     //attributes
     private String timestamp; 
