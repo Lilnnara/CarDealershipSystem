@@ -140,7 +140,7 @@ public class ShopManager {
 
         String carId;
         while (true) {
-            System.out.print("Enter the car ID to retrieve revenue: ");
+            System.out.print("\nEnter the car ID to retrieve revenue: ");
             carId = scanner.nextLine();
             try {
                 int id = Integer.parseInt(carId);
@@ -197,7 +197,7 @@ public class ShopManager {
         System.out.println("4. Pickup");
 
         while (true) {
-            System.out.print("Enter the number corresponding to the car type: ");
+            System.out.print("\nEnter the number corresponding to the car type: ");
             if (scanner.hasNextInt()) {
                 carTypeChoice = scanner.nextInt();
                 if (carTypeChoice >= 1 && carTypeChoice <= 4) {
@@ -504,9 +504,10 @@ public class ShopManager {
      */
     public void browseCars() {
         System.out.println("Displaying all cars:\n");
+
+        System.out.println("--------------------------------------------------"); // separator for readability
         for (Car car : cars.values()) {
             System.out.println(car);
-            System.out.println("--------------------------------------------------"); // separator for readability
         }
     }
 
@@ -550,7 +551,7 @@ public class ShopManager {
      */
     public void viewUserTransactions(String username) {
         System.out.println();
-        System.out.println("Fetching transactions for user: " + username);
+        System.out.println("\nFetching transactions for user: " + username);
         HashMap<Integer, Ticket> userTickets = getUserTransactions(username);
         for (Ticket ticket : userTickets.values()) {
             System.out.println(ticket);
