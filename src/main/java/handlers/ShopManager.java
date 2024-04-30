@@ -4,6 +4,7 @@ import java.util.Scanner;
 import main.java.models.Car;
 import main.java.models.User;
 import main.java.ui.CarAdditionMenu;
+import main.java.ui.UserAdditionMenu;
 import main.java.models.Ticket;
 
 import java.util.Collections;
@@ -265,39 +266,31 @@ public class ShopManager {
      * 
      * @return HashMap<String, User>
      */
-    public HashMap<String, User> addNewUser() {
-        // Add new user to the HashMap
-        // If needed, write changes to the CSV file
-        HashMap<String, String> userAttributes = new HashMap<>();
-
-        Scanner scanner = new Scanner(System.in);
-        // get admin input
-        System.out.println("Hello! to add a new user we will need the following information: \n ");
-
-        for (Map.Entry<String, Integer> entry : userHeaderIndexMap.entrySet()) {
-            System.out.println("Enter " + entry.getKey() + ":");
-            String userInput = scanner.nextLine();
-            userAttributes.put(entry.getKey(), userInput);
-        }
-        // call factory to create car object
+    public void addNewUser() {
+        UserAdditionMenu userAdditionMenu = new UserAdditionMenu(users); // Pass existing users to the menu
+        HashMap<String, String> userAttributes = userAdditionMenu.collectUserAttributes(userHeaderIndexMap);
+    
+        // Generate the next ID based on the number of users
+        int nextUserId = users.size() + 1;
+        userAttributes.put("ID", String.valueOf(nextUserId)); // Add the ID to the user attributes
+    
         User newUser = userFactory.create(userAttributes);
-        // add car to hashmap
-        users.put(newUser.getUsername(), newUser);
-
-        System.out.println("User added sucessfully!");
-        // update csv with the new User <3 uncomment if we want to update evrytime we
-        // add a User
+        users.put(newUser.getUsername(), newUser); // Username as key
+    
+        System.out.println("\nUser added successfully.");
+        System.out.println("-----------------------------------------");
+        System.out.println(newUser);
+    
+        // Update user file and logs
         FileHandler.updateUserFile("resources/user_data.csv", users, userHeaderIndexMap);
-        logsLinkedList.add(new Log("Admin ", "Added a user."));
-        // scanner.close();
-        // RETURN HASHMAP
-        return users;
+        logsLinkedList.add(new Log("Admin", "Added a user with ID: " + nextUserId));
     }
+    
+    
 
-    /**
-     * Uses updateCarsAvailable to update the car values affected by a car purchase
-     * or return.
-     * 
+    
+    /** 
+     * Uses updateCarsAvailable to update the car values affected by a car purchase or return.
      * @param car
      * @param isPurchase
      * @param amount

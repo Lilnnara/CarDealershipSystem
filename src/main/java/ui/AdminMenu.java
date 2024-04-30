@@ -48,7 +48,7 @@ public class AdminMenu implements Menu {
         System.out.println("2. Remove a car");
         System.out.println("3. Retrieve revenue by car ID");
         System.out.println("4. Retrieve revenue by car type");
-        System.out.println("5. Manage users");
+        System.out.println("5. Add a new user");
         System.out.println("0. Go back to main menu");
     }
 

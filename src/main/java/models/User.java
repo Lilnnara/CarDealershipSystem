@@ -130,8 +130,16 @@ public class User extends Person {
      * Method to generate a clean String value for User for printing and comparisons.
      * @return A String representation of the User object. 
      */
-    public String toString(){
-        return "" + id + "," + super.getFirstName() + "," + super.getLastName() + "," + moneyAvailable + "," + carsPurchased + "," + (minecarsMembership ? "True" : "False") + "," + username + "," + password;
+    public String toString() {
+        return "User ID: " + id +
+               "\nUsername: " + username +
+               "\nPassword: " + password + // Note: Typically, passwords should not be exposed in logs or toString methods for security reasons.
+               "\nFirst Name: " + super.getFirstName() +
+               "\nLast Name: " + super.getLastName() +
+               "\nMoney Available: $" + String.format("%.2f", moneyAvailable) +
+               "\nCars Purchased: " + carsPurchased +
+               "\nMinerCars Membership: " + (minecarsMembership ? "Yes" : "No") +
+               "\n-----------------------------------------";
     }
 
     
