@@ -1,6 +1,7 @@
 package main.java.ui;
 
 import main.java.models.User;
+import main.java.exceptions.UsernameAlreadyTakenException;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.LinkedHashMap;
@@ -23,54 +24,83 @@ public class UserAdditionMenu {
 
     /**
      * Collects user attributes from input, validating and ensuring data integrity before user creation.
+     * This method iteratively prompts for user data based on the fields specified in the userHeaderIndexMap.
+     * For the 'Username' field, it specifically checks for uniqueness and may repeatedly prompt the user 
+     * if the provided username is already taken, handling the UsernameAlreadyTakenException internally.
+     *
      * @param userHeaderIndexMap A LinkedHashMap defining the order and required fields for user input.
-     * @return A HashMap containing attribute names and their corresponding user-provided values.
+     *                           Each entry in the map indicates a field expected from the user and its order of appearance.
+     * @return A HashMap containing attribute names and their corresponding user-provided values. Each key in the map
+     *         is the field name, and the value is the input provided by the user.
+     * @throws UsernameAlreadyTakenException if the provided username is already in use. This exception is handled internally,
+     *         and the user is prompted again for a unique username.
      */
     public HashMap<String, String> collectUserAttributes(LinkedHashMap<String, Integer> userHeaderIndexMap) {
         HashMap<String, String> userAttributes = new HashMap<>();
         System.out.println("\nPlease enter the following information for the new user:");
-
+    
         for (String key : userHeaderIndexMap.keySet()) {
-            switch (key) {
-                case "Username":
-                    userAttributes.put(key, getUniqueUsername("\nEnter Username: "));
-                    break;
-                case "Password":
-                    userAttributes.put(key, getRequiredInput("\nEnter Password (min 6 characters): ", 6));
-                    break;
-                case "First Name":
-                case "Last Name":
-                    userAttributes.put(key, getStringInput("\nEnter " + key + " (no numbers): "));
-                    break;
-                case "Money Available":
-                    userAttributes.put(key, getNumericInput("\nEnter Money Available: "));
-                    break;
-                case "Cars Purchased":
-                    userAttributes.put(key, getNumericInput("\nEnter Cars Purchased: "));
-                    break;
-                case "MinerCars Membership":
-                    userAttributes.put(key, chooseMembership());
-                    break;
+            try {
+                switch (key) {
+                    case "Username":
+                        // Attempt to get a unique username, handle exception if thrown
+                        boolean isUsernameSet = false;
+                        while (!isUsernameSet) {
+                            try {
+                                String username = getUniqueUsername("\nEnter Username: ");
+                                userAttributes.put(key, username);
+                                isUsernameSet = true; // Set flag to exit loop if username is successfully obtained
+                            } catch (UsernameAlreadyTakenException e) {
+                                System.out.println(e.getMessage()); // Inform the user that the username is taken
+                            }
+                        }
+                        break;
+                    case "Password":
+                        userAttributes.put(key, getRequiredInput("\nEnter Password (min 6 characters): ", 6));
+                        break;
+                    case "First Name":
+                    case "Last Name":
+                        userAttributes.put(key, getStringInput("\nEnter " + key + " (no numbers): "));
+                        break;
+                    case "Money Available":
+                        userAttributes.put(key, getNumericInput("\nEnter Money Available: "));
+                        break;
+                    case "Cars Purchased":
+                        userAttributes.put(key, getNumericInput("\nEnter Cars Purchased: "));
+                        break;
+                    case "MinerCars Membership":
+                        userAttributes.put(key, chooseMembership());
+                        break;
+                }
+            } catch (Exception e) {
+                // Generic catch block in case other unexpected exceptions occur
+                System.out.println("An unexpected error occurred when adding a new user: " + e.getMessage());
             }
         }
         return userAttributes;
     }
+    
 
     /**
-     * Ensures the uniqueness of a username, prompting the user until a non-duplicate username is entered.
+     * Ensures the uniqueness of a username within the system. It prompts the user for a username and checks 
+     * against existing users to ensure no duplicates. If a duplicate is found, it throws a 
+     * UsernameAlreadyTakenException, prompting the caller to handle this situation, typically by requesting the 
+     * user to provide a different username.
+     * 
      * @param prompt The input prompt displayed to the user.
-     * @return A unique username.
+     * @return A unique username that does not exist in the current user registry.
+     * @throws UsernameAlreadyTakenException if the entered username is already taken.
      */
-    private String getUniqueUsername(String prompt) {
+    private String getUniqueUsername(String prompt) throws UsernameAlreadyTakenException {
         System.out.print(prompt);
         String username = scanner.nextLine().trim();
-        while (existingUsers.containsKey(username)) {
-            System.out.println("This username is already taken. Please choose another one.");
-            System.out.print(prompt);
-            username = scanner.nextLine().trim();
+        if (existingUsers.containsKey(username)) {
+            throw new UsernameAlreadyTakenException("This username is already taken. Please choose another one.");
         }
         return username;
     }
+
+    
 
     /**
      * Prompts for user input and ensures it meets a specified minimum length.
