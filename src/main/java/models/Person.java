@@ -1,5 +1,9 @@
 package main.java.models;
 
+/**
+ * The Person class represents an abstract entity with attributes firstName and lastName.
+ * It provides getters and setters for these attributes.
+ */
 public abstract class Person {
     // Attributes
     private String firstName;
