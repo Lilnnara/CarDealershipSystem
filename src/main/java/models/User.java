@@ -71,7 +71,7 @@ public class User extends Person {
      * Getter for carsPurchased
      * @return The number of cars purchased by the user.
      */
-    protected int getCarsPurchased() {
+    public int getCarsPurchased() {
         return carsPurchased;
     }
 

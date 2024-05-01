@@ -1,0 +1,4 @@
+TicketID,FirstName,LastName,Username,CarID,CarModel,CarType,CarYear,OriginalPrice,FinalPrice,PurchaseDate,TicketType
+1,Wolverine,Wilson,wolverine,34,Honda Fit,Hatchback,2004,32801.06,34851.12625,2024-05-01,Purchase
+2,Han,Solo,hansolo,30,Honda CR-V,SUV,2002,20900.65,19986.246562500004,2024-05-01,Purchase
+3,Captain,Jack Sparrow,captainjacksparrow,25,Ford F-150,Pickup,2024,22272.46,23664.48875,2024-05-01,Purchase
