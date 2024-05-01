@@ -80,6 +80,10 @@ public class ShopRunner {
                         break;
                     case "0":
                         System.out.println("Exiting the system...");
+                        //Update files changed while shop is running
+                        FileHandler.updateTicketFile("resources/ticket_data.csv", tickets, ticketHeaderIndexMap);
+                        FileHandler.updateUserFile("resources/user_data.csv", users, userHeaderIndexMap);
+                        FileHandler.updateCarFile("resources/car_data.csv", cars, carHeaderIndexMap);
                         return; // Exit the loop and the program
                     default:
                         System.out.println("\n----- Invalid option selected. Please try again. -----\n");
