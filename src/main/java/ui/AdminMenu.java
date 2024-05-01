@@ -31,7 +31,7 @@ public class AdminMenu implements Menu {
         System.out.print("\nPlease enter Admin code: ");
         String code = scanner.nextLine();
         if (shopManager.authenticateAdmin(code)) {
-            shopManager.logsLinkedList.add(new Log("Admin ","Logged in."));
+            new Log("Admin ","Logged in.");
             handleSelection();
         } else {
             System.out.println("Invalid Admin Login. Please check if the password is correct and try again.");
@@ -82,7 +82,7 @@ public class AdminMenu implements Menu {
                     shopManager.addNewUser();
                     break;
                 case "0":
-                    shopManager.logsLinkedList.add(new Log("Admin ","Logged out."));
+                    new Log("Admin ","Logged out.");
                     System.out.println("\n----- Exiting Admin Menu... -----\n");
                     return; // Exit the loop
                 default:

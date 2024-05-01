@@ -201,3 +201,16 @@
 12:34:14 29-04-2024 - Admin  got revenue by Car Type.
 12:34:28 29-04-2024 - Admin  got revenue by Car Type.
 12:34:52 29-04-2024 - Admin  got revenue by Car Type.
+22:12:50 30-04-2024 -  Shop initialized.
+22:12:50 30-04-2024 -  Shop closed.
+
+
+22:15:48 30-04-2024 -  Shop initialized.
+22:16:47 30-04-2024 - User wolverine  Logged in.
+22:20:20 30-04-2024 - User wolverine  Purchased a car.
+22:20:49 30-04-2024 - User wolverine  Returned a car.
+22:21:02 30-04-2024 - User wolverine  Viewed transactions.
+22:21:16 30-04-2024 - User wolverine  Logged out.
+22:21:23 30-04-2024 -  Shop closed.
+
+

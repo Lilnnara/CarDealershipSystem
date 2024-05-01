@@ -10,3 +10,5 @@ TicketID,FirstName,LastName,Username,CarID,CarModel,CarType,CarYear,OriginalPric
 9,Yoda,Smith,yoda,99,Chevrolet Tahoe,SUV,2022,33289.25,35369.828125,2024-04-21,Purchase
 10,Yoda,Smith,yoda,99,Chevrolet Tahoe,SUV,2022,33289.25,35369.828125,2024-04-21,Return
 11,Yoda,Smith,yoda,99,Chevrolet Tahoe,SUV,2022,33289.25,35369.828125,2024-04-21,Purchase
+12,Wolverine,Wilson,wolverine,34,Honda Fit,Hatchback,2004,32801.06,34851.12625,2024-04-30,Purchase
+13,Wolverine,Wilson,wolverine,34,Honda Fit,Hatchback,2004,32801.06,34851.12625,2024-04-30,Return

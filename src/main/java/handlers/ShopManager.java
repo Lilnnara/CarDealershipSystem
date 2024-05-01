@@ -14,7 +14,6 @@ import main.java.utils.Log;
 import java.util.LinkedHashMap;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.LinkedList;
 import main.java.factory.CarFactory;
 import main.java.factory.UserFactory;
 import main.java.factory.TicketFactory;
@@ -32,7 +31,6 @@ public class ShopManager {
     private LinkedHashMap<String, Integer> carHeaderIndexMap;
     private LinkedHashMap<String, Integer> userHeaderIndexMap;
     private LinkedHashMap<String, Integer> ticketHeaderIndexMap;
-    public LinkedList<Log> logsLinkedList = new LinkedList<Log>();
     private CarFactory carFactory = new CarFactory();
     private UserFactory userFactory = new UserFactory();
     private TicketFactory ticketFactory = new TicketFactory();
@@ -124,9 +122,8 @@ public class ShopManager {
         System.out.println("-----------------------------------------");
         System.out.println(newCar);
 
-        // Update car file and logs
-        FileHandler.updateCarFile("resources/car_data.csv", cars, carHeaderIndexMap);
-        logsLinkedList.add(new Log("Admin", "Added a car with ID: " + nextId));
+        // Update log
+        new Log("Admin", "Added a car with ID: " + nextId);
     }
 
     /**
@@ -138,7 +135,7 @@ public class ShopManager {
      *         were found.
      */
     public double getRevenueById() {
-        logsLinkedList.add(new Log("Admin ", "got revenue by ID."));
+        new Log("Admin ", "got revenue by ID.");
         double revenue = 0.0;
         boolean typeFound = false; // Flag to check if any relevant tickets are found
         Scanner scanner = new Scanner(System.in);
@@ -188,7 +185,7 @@ public class ShopManager {
      *         transactions were found.
      */
     public double getRevenueByCarType() {
-        logsLinkedList.add(new Log("Admin ", "got revenue by Car Type."));
+        new Log("Admin ", "got revenue by Car Type.");
         double revenue = 0.0;
         boolean typeFound = false;
         Scanner scanner = new Scanner(System.in);
@@ -276,7 +273,7 @@ public class ShopManager {
             System.out.println("Car with ID " + carId + " was successfully removed.");
 
             // Add a log entry for the removal operation
-            logsLinkedList.add(new Log("Admin", "Removed a car with ID: " + carId));
+            new Log("Admin", "Removed a car with ID: " + carId);
 
             // Return the updated inventory
             return cars;
@@ -306,9 +303,8 @@ public class ShopManager {
         System.out.println("-----------------------------------------");
         System.out.println(newUser);
     
-        // Update user file and logs
-        FileHandler.updateUserFile("resources/user_data.csv", users, userHeaderIndexMap);
-        logsLinkedList.add(new Log("Admin", "Added a user with ID: " + nextUserId));
+        // Update log
+        new Log("Admin", "Added a user with ID: " + nextUserId);
     }
     
     
@@ -323,7 +319,6 @@ public class ShopManager {
     public void updateStock(Car car, boolean isPurchase, int amount) {
         // ! is purchase because updateCarsAvailable uses is increase value
         car.updateCarsAvailable(!isPurchase, amount);
-        FileHandler.updateCarFile("resources/car_data.csv", cars, carHeaderIndexMap);
     }
 
     /**
@@ -339,7 +334,6 @@ public class ShopManager {
         user.updateCarsPurchased(isPurchase, carAmount);
         // ! is purchase because updateMoneyAvailable uses is increase value
         user.updateMoneyAvailable(!isPurchase, moneyAmount);
-        FileHandler.updateUserFile("resources/user_data.csv", users, userHeaderIndexMap);
     }
 
     /**
@@ -412,10 +406,15 @@ public class ShopManager {
                 if (scanner.hasNextInt()) {
                     input = scanner.nextInt();
                     if (input == 1) {
-                        purchaseCar(user, car);
+                        System.out.println("Success! You have purchased the car! Here is your ticket:");
+                        System.out.println(purchaseCar(user, car));
+                    }else if (input == 2) {
+                        System.out.println("Okay! Purchase canceled.");
                     } else {
-                        System.out.println("Purchase failed.  Please enter a valid response.");
+                        System.out.println("Invalid input, purchase canceled.");
                     }
+                } else{
+                    System.out.println("Invalid input, purchase canceled.");
                 }
             } else {
                 System.out.println("Invalid Car ID for purchase.");
@@ -433,8 +432,9 @@ public class ShopManager {
      * 
      * @param user
      * @param car
+     * @return returns purchaseTicket
      */
-    public void purchaseCar(User user, Car car) {
+    public Ticket purchaseCar(User user, Car car) {
         double price = 0;
         if (user.isMinecarsMembership()) {
             price = getCostAfterTaxes(getMembershipCost(car));
@@ -447,12 +447,12 @@ public class ShopManager {
         // Update cars available
         updateStock(car, true, 1);
         // Record transaction
-        Ticket returnTicket = new Ticket(tickets.size() + 1, user.getFirstName(), user.getLastName(),
+        Ticket purchaseTicket = new Ticket(tickets.size() + 1, user.getFirstName(), user.getLastName(),
                 user.getUsername(), car.getId(), car.getModel(), car.getCarType(), car.getYear(), car.getPrice(), price,
                 new Date(), false);
-        tickets.put(tickets.size() + 1, returnTicket);
-        FileHandler.updateTicketFile("resources/ticket_data.csv", tickets, ticketHeaderIndexMap);
-        logsLinkedList.add(new Log("User " + user.getUsername() + " ", "Purchased a car."));
+        tickets.put(tickets.size() + 1, purchaseTicket);
+        new Log("User " + user.getUsername() + " ", "Purchased a car.");
+        return purchaseTicket;
     }
 
     /**
@@ -474,10 +474,15 @@ public class ShopManager {
         if (scanner.hasNextInt()) {
             int input = scanner.nextInt();
             if (userCars.get(input) != null) {
-                returnCar(user, userCars.get(input));
+                System.out.println("Success! Car has been returned. Here is your ticket:");
+                System.out.println(returnCar(user, userCars.get(input)));
             } else {
                 System.out.println("Invalid Ticket ID for return.");
             }
+        }
+        else {
+            System.out.println("Invalid Ticket ID for return.");
+            return;
         }
     }
 
@@ -486,8 +491,9 @@ public class ShopManager {
      * 
      * @param user
      * @param ticket
+     * @return returns returnTicket
      */
-    public void returnCar(User user, Ticket ticket) {
+    public Ticket returnCar(User user, Ticket ticket) {
         Car car = cars.get(Integer.parseInt(ticket.getCarId()));
         // Process car return
         // Update user's cars purchased
@@ -499,8 +505,8 @@ public class ShopManager {
                 ticket.getUsername(), ticket.getCarId(), ticket.getPurchasedCarModel(), ticket.getCarType(),
                 ticket.getCarYear(), ticket.getOriginalPrice(), ticket.getFinalPrice(), new Date(), true);
         tickets.put(tickets.size() + 1, returnTicket);
-        FileHandler.updateTicketFile("resources/ticket_data.csv", tickets, ticketHeaderIndexMap);
-        logsLinkedList.add(new Log("User " + user.getUsername() + " ", "Returned a car."));
+        new Log("User " + user.getUsername() + " ", "Returned a car.");
+        return returnTicket;
     }
 
     /**
@@ -564,7 +570,7 @@ public class ShopManager {
         if (userTickets.size() == 0) {
             System.out.println("No transactions found for the specified user.");
         }
-        logsLinkedList.add(new Log("User " + username + " ", "Viewed transactions."));
+        new Log("User " + username + " ", "Viewed transactions.");
     }
 
     /**
