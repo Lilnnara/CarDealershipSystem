@@ -2,7 +2,7 @@ package main.java.models;
 
 
 /**
- * Represents a user in the system, extending the {@code Person} class. 
+ * Represents a User in the system, extending the {@code Person} class. 
  * Manages user information such as financial status, membership, and login credentials.
  */
 public class User extends Person {
