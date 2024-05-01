@@ -19,6 +19,11 @@ import main.java.factory.CarFactory;
 import main.java.factory.UserFactory;
 import main.java.factory.TicketFactory;
 
+
+/**
+ * The ShopManager class manages the operations and functionalities of the car shop system.
+ * It handles car, user, and ticket management, as well as authentication and data processing.
+ */
 public class ShopManager {
 
     private HashMap<Integer, Car> cars;
